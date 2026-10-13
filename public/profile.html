@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="referrer" content="no-referrer">
+  <title>RePay | الصفحة الشخصية</title>
+  <meta name="description" content="راجع بيانات المرسل والمستفيد قبل متابعة الدفع عبر RePay.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/core.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/pages/profile.js" defer></script>
+</head>
+<body>
+<main class="profile-page">
+<header class="home-header"><a href="home.html" aria-label="الرئيسية"><img src="assets/repay-logo.png" width="48" height="48" alt="RePay"></a><button id="edit-profile" class="edit-profile" type="button" aria-label="تعديل البيانات"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 5 5M3 21l5-1L21 7a3.5 3.5 0 0 0-5-5L3 16z"/></svg></button></header>
+<section class="profile-identity"><span class="profile-avatar">M</span><h1 id="profile-name">—</h1></section>
+<form id="profile-form">
+<div class="profile-field"><label for="full-name">الاسم الكامل</label><input id="full-name" name="fullName" value="" maxlength="100" required readonly autocomplete="name"></div>
+<div class="profile-field"><label for="email">البريد الإلكتروني</label><input id="email" name="email" type="email" value="" maxlength="254" required readonly autocomplete="email" dir="ltr"></div>
+<div class="profile-field"><label for="phone">رقم الجوال</label><input id="phone" name="phone" type="tel" value="" maxlength="20" pattern="[+0-9 ()-]{7,20}" required readonly autocomplete="tel" dir="ltr"></div>
+<p id="profile-status" role="status" hidden></p>
+<button class="profile-save" id="profile-save" type="submit" hidden>حفظ</button>
+</form>
+</main>
+</body></html>

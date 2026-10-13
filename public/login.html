@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="referrer" content="no-referrer">
+  <title>RePay | تسجيل الدخول</title>
+  <meta name="description" content="راجع بيانات المرسل والمستفيد قبل متابعة الدفع عبر RePay.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/core.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/pages/login.js" defer></script>
+</head>
+<body>
+<main class="login-page">
+<a class="login-logo" href="https://repay.sa" aria-label="RePay"><img src="assets/repay-logo.png" width="128" height="128" alt="RePay"></a>
+<form id="login-form">
+<div class="login-field"><label for="login-phone">أدخل رقم الجوال</label><input id="login-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="05" minlength="10" maxlength="10" pattern="05[0-9]{8}" required aria-describedby="login-status"></div>
+<p id="login-status" role="status" hidden></p>
+<button id="login-next" type="submit" disabled>التالي</button>
+</form>
+</main>
+</body></html>

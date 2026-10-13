@@ -1,0 +1,70 @@
+{
+  "profile": {
+    "fullName": "محمد أحمد",
+    "email": "demo@example.com",
+    "phone": "0512345678"
+  },
+  "wallet": {
+    "displayName": "Mohammed",
+    "balanceMinor": 10000,
+    "transactions": [
+      {
+        "direction": "incoming",
+        "name": "علي",
+        "note": "قطّة عشا",
+        "fromPhone": "054XXXX009",
+        "toPhone": "054XXXX909",
+        "amountMinor": 2500,
+        "createdAt": "2026-06-26T07:00:00Z"
+      },
+      {
+        "direction": "outgoing",
+        "name": "سارة",
+        "note": "هدية",
+        "fromPhone": "054XXXX909",
+        "toPhone": "050XXXX218",
+        "amountMinor": 4000,
+        "createdAt": "2026-06-25T17:30:00Z"
+      },
+      {
+        "direction": "incoming",
+        "name": "خالد",
+        "note": "ملعب كورة",
+        "fromPhone": "055XXXX731",
+        "toPhone": "054XXXX909",
+        "amountMinor": 7500,
+        "createdAt": "2026-06-24T11:15:00Z"
+      },
+      {
+        "direction": "outgoing",
+        "name": "عمر",
+        "note": "قهوة",
+        "fromPhone": "054XXXX909",
+        "toPhone": "053XXXX482",
+        "amountMinor": 2000,
+        "createdAt": "2026-06-23T06:00:00Z"
+      }
+    ]
+  },
+  "transaction": {
+    "id": "demo",
+    "status": "pending",
+    "accountName": "محمد",
+    "sender": {
+      "name": "محمد السيد",
+      "phone": "054XXXX449"
+    },
+    "recipient": {
+      "name": "سيد أحمد",
+      "phone": "05XXXXXX49"
+    },
+    "amountMinor": 18000,
+    "currency": "SAR"
+  },
+  "receipt": {
+    "id": "demo",
+    "status": "paid",
+    "amountMinor": 4000,
+    "currency": "SAR"
+  }
+}

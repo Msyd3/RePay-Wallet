@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="referrer" content="no-referrer">
+  <title>RePay confirm | ملخص العملية</title>
+  <meta name="description" content="راجع بيانات المرسل والمستفيد قبل متابعة الدفع عبر RePay.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/core.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/pages/summary.js" defer></script>
+</head>
+<body>
+  <main class="summary" aria-labelledby="summary-title">
+    <header class="brand" aria-label="RePay">
+      <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch to English">EN</button>
+      <a class="brand-link" href="https://repay.sa" aria-label="RePay"><img src="assets/repay-logo.png" width="48" height="48" alt="RePay"></a>
+    </header>
+    <section class="heading">
+      <h1 id="summary-title">ملخص العملية</h1>
+    </section>
+    <section class="parties" aria-label="بيانات التحويل">
+      <article class="person">
+        <span class="avatar" id="sender-avatar" aria-hidden="true">M</span>
+        <div class="person-copy"><h2 data-i18n="sender">المرسل</h2><p><bdi id="sender-name">—</bdi> <bdi id="sender-phone" dir="ltr">—</bdi></p></div>
+      </article>
+      <article class="person">
+        <span class="avatar" id="recipient-avatar" aria-hidden="true">M</span>
+        <div class="person-copy"><h2 data-i18n="recipient">المستفيد</h2><p><bdi id="recipient-name">—</bdi> <bdi id="recipient-phone" dir="ltr">—</bdi></p></div>
+      </article>
+      <article class="amount-card"><h2 data-i18n="amount">المبلغ</h2><p><span id="currency-label"><img class="sar-symbol" src="assets/sar.svg" alt="ريال سعودي" width="20" height="22"></span><bdi id="amount-value">—</bdi></p></article>
+    </section>
+    <section class="note-section" aria-label="ملاحظة">
+      <textarea id="transaction-note" aria-label="ملاحظة (اختياري)" maxlength="500" rows="3" placeholder="أضف ملاحظة…"></textarea>
+      <div class="note-emojis" role="group" aria-label="إيموجيات للملاحظة">
+        <button type="button" class="emoji-choice" data-emoji="🍽️" aria-label="عشاء">🍽️</button>
+        <button type="button" class="emoji-choice" data-emoji="⚽" aria-label="كرة قدم">⚽</button>
+        <button type="button" class="emoji-choice" data-emoji="☕" aria-label="قهوة">☕</button>
+        <button type="button" class="emoji-choice" data-emoji="🎁" aria-label="هدية">🎁</button>
+        <button type="button" class="emoji-choice" data-emoji="❤️" aria-label="قلب">❤️</button>
+        <button type="button" class="emoji-choice" data-emoji="🙌" aria-label="احتفال">🙌</button>
+        <button type="button" class="emoji-choice emoji-more" id="emoji-more" aria-label="المزيد من الإيموجيات" aria-expanded="false" aria-controls="emoji-picker">☺︎ +</button>
+      </div>
+      <div id="emoji-picker" class="emoji-picker" role="group" aria-label="اختيار إيموجي" hidden>
+<button type="button" class="emoji-choice" data-emoji="😀" aria-label="😀">😀</button>
+<button type="button" class="emoji-choice" data-emoji="😊" aria-label="😊">😊</button>
+<button type="button" class="emoji-choice" data-emoji="😂" aria-label="😂">😂</button>
+<button type="button" class="emoji-choice" data-emoji="🥳" aria-label="🥳">🥳</button>
+<button type="button" class="emoji-choice" data-emoji="😍" aria-label="😍">😍</button>
+<button type="button" class="emoji-choice" data-emoji="🤍" aria-label="🤍">🤍</button>
+<button type="button" class="emoji-choice" data-emoji="👍" aria-label="👍">👍</button>
+<button type="button" class="emoji-choice" data-emoji="👏" aria-label="👏">👏</button>
+<button type="button" class="emoji-choice" data-emoji="🙏" aria-label="🙏">🙏</button>
+<button type="button" class="emoji-choice" data-emoji="🔥" aria-label="🔥">🔥</button>
+<button type="button" class="emoji-choice" data-emoji="💸" aria-label="💸">💸</button>
+<button type="button" class="emoji-choice" data-emoji="🛍️" aria-label="🛍️">🛍️</button>
+<button type="button" class="emoji-choice" data-emoji="🍔" aria-label="🍔">🍔</button>
+<button type="button" class="emoji-choice" data-emoji="🍕" aria-label="🍕">🍕</button>
+<button type="button" class="emoji-choice" data-emoji="🍣" aria-label="🍣">🍣</button>
+<button type="button" class="emoji-choice" data-emoji="🍰" aria-label="🍰">🍰</button>
+<button type="button" class="emoji-choice" data-emoji="🎮" aria-label="🎮">🎮</button>
+<button type="button" class="emoji-choice" data-emoji="🏆" aria-label="🏆">🏆</button>
+<button type="button" class="emoji-choice" data-emoji="🚗" aria-label="🚗">🚗</button>
+<button type="button" class="emoji-choice" data-emoji="✈️" aria-label="✈️">✈️</button>
+<button type="button" class="emoji-choice" data-emoji="🏠" aria-label="🏠">🏠</button>
+<button type="button" class="emoji-choice" data-emoji="🎉" aria-label="🎉">🎉</button>
+<button type="button" class="emoji-choice" data-emoji="🌹" aria-label="🌹">🌹</button>
+<button type="button" class="emoji-choice" data-emoji="🐈" aria-label="🐈">🐈</button>
+      </div>
+    </section>
+    <footer class="payment">
+      <div class="payment-actions">
+      <button id="cancel-button" class="cancel-button" type="button" data-i18n="cancel">إلغاء</button>
+      <button id="pay-button" type="button"><span data-i18n="pay">دفع باستخدام</span><span class="apple-pay" dir="ltr"><svg aria-hidden="true" viewBox="0 0 20 23"><path fill="currentColor" d="M14.1 3.6c.8-1 1.3-2.3 1.1-3.6-1.2.1-2.6.9-3.4 1.8-.7.8-1.4 2.2-1.2 3.5 1.3.1 2.6-.7 3.5-1.7ZM18 17.2c-.5 1.1-.8 1.5-1.4 2.5-.9 1.4-2.2 3.1-3.8 3.1-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.5-3.8-2.9C-1.1 16 .4 8.3 4.2 7.1c1.6-.5 3.2.5 4.3.5 1.2 0 3.1-1.2 5-1 .8 0 3.1.3 4.5 2.4-4 2.2-3.3 7.8 0 8.2Z"/></svg>Pay</span></button>
+      </div>
+      <p class="powered" lang="en" dir="ltr"><a href="https://repay.sa">Powered by <strong>RePay</strong></a></p>
+      <p id="payment-status" role="status" aria-live="polite" hidden></p>
+    </footer>
+  </main>
+</body>
+</html>

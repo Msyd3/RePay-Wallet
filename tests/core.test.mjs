@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import { readFile } from 'node:fs/promises';
+const source = await readFile('public/js/core.js', 'utf8');
+function runtime(fetch) { const context = { window: {}, URL, Intl, AbortSignal, location: { origin: 'https://repay.sa' }, fetch, sessionStorage: { removeItem() {} } }; vm.createContext(context); vm.runInContext(source, context); return context.window.RePay; }
+test('Arabic and Persian phone digits normalize before validation', () => { const r = runtime(); assert.equal(r.phone('٠٥١٢٣٤٥٦٧٨'), '0512345678'); assert.equal(r.phone('۰۵۱۲۳۴۵۶۷۸'), '0512345678'); for (const p of ['0412345678', '05123', '05123456789']) assert.equal(r.validPhone(p), false); });
+test('Money uses integer minor units and rejects unsafe values', () => { const r = runtime(); assert.equal(r.money(4050), '40.50'); for (const v of [-1, 0.5, NaN, Number.MAX_SAFE_INTEGER + 1]) assert.throws(() => r.money(v)); });
+test('Receipt must match the transaction and a known status', () => { const r = runtime(); const data = { id: 'txn_1', status: 'paid', currency: 'SAR', amountMinor: 4000 }; assert.equal(r.validateReceipt(data, 'txn_1').status, 'paid'); assert.throws(() => r.validateReceipt(data, 'another')); assert.throws(() => r.validateReceipt({ ...data, status: 'success' }, 'txn_1')); assert.throws(() => r.safeId('../auth')); });
+test('API blocks external origins and sends CSRF for mutations', async () => { const calls = []; const r = runtime(async (url, init) => { calls.push({ url: String(url), init }); return { ok: true, status: 200, json: async () => ({ csrfToken: 'test-token' }) }; }); await assert.rejects(r.api('https://other.example/api/wallet')); await r.api('/api/profile', { method: 'PATCH', data: { fullName: 'Example' } }); assert.equal(calls.length, 2); assert.equal(calls[1].init.headers['X-CSRF-Token'], 'test-token'); assert.equal(calls[1].init.credentials, 'same-origin'); assert.equal(calls[1].init.cache, 'no-store'); });
+test('Mutations fail closed when CSRF token is absent', async () => { let count = 0; const r = runtime(async () => { count++; return { ok: true, status: 200, json: async () => ({}) }; }); await assert.rejects(r.api('/api/auth/logout', { method: 'POST' })); assert.equal(count, 1); });
