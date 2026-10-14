@@ -23,9 +23,9 @@ window.RePay = (() => {
       const session = await api("/api/session");
       if (typeof session.csrfToken !== "string" || !session.csrfToken) throw new Error("Missing CSRF token");
       headers["X-CSRF-Token"] = session.csrfToken;
-      headers["Content-Type"] = "application/json";
+      if (!(data instanceof FormData)) headers["Content-Type"] = "application/json";
     }
-    const response = await fetch(url, { method, credentials: "same-origin", cache: "no-store", headers, ...(data ? { body: JSON.stringify(data) } : {}), signal: AbortSignal.timeout(15000) });
+    const response = await fetch(url, { method, credentials: "same-origin", cache: "no-store", headers, ...(data ? { body: data instanceof FormData ? data : JSON.stringify(data) } : {}), signal: AbortSignal.timeout(15000) });
     if (!response.ok) { const error = new Error("API request failed"); error.status = response.status; throw error; }
     if (response.status === 204) return {};
     return response.json();

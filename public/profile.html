@@ -13,12 +13,13 @@
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/core.js"></script>
   <script src="js/config.js"></script>
+  <script src="js/avatars.js"></script>
   <script src="js/pages/profile.js" defer></script>
 </head>
 <body>
 <main class="profile-page">
 <header class="home-header"><a href="home.html" aria-label="الرئيسية"><img src="assets/repay-logo.png" width="48" height="48" alt="RePay"></a><button id="edit-profile" class="edit-profile" type="button" aria-label="تعديل البيانات"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 5 5M3 21l5-1L21 7a3.5 3.5 0 0 0-5-5L3 16z"/></svg></button></header>
-<section class="profile-identity"><span class="profile-avatar">M</span><h1 id="profile-name">—</h1></section>
+<section class="profile-identity"><button type="button" class="profile-avatar" id="profile-avatar" aria-label="تغيير صورة الحساب"></button><h1 id="profile-name">—</h1></section>
 <form id="profile-form">
 <div class="profile-field"><label for="full-name">الاسم الكامل</label><input id="full-name" name="fullName" value="" maxlength="100" required readonly autocomplete="name"></div>
 <div class="profile-field"><label for="email">البريد الإلكتروني</label><input id="email" name="email" type="email" value="" maxlength="254" required readonly autocomplete="email" dir="ltr"></div>
@@ -27,4 +28,11 @@
 <button class="profile-save" id="profile-save" type="submit" hidden>حفظ</button>
 </form>
 </main>
+<dialog id="avatar-dialog" class="avatar-dialog" aria-labelledby="avatar-title">
+<div class="avatar-dialog-header"><h2 id="avatar-title">اختر صورة حسابك</h2><button type="button" id="avatar-close" aria-label="إغلاق">×</button></div>
+<div id="avatar-grid" class="avatar-grid"></div>
+<button type="button" id="avatar-album" class="avatar-album">اختيار من الألبوم</button>
+<input id="avatar-file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+<p id="avatar-error" role="status" hidden></p>
+</dialog>
 </body></html>

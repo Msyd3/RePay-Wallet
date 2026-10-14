@@ -31,7 +31,7 @@ function render() {
     for (const role of ["sender", "recipient"]) {
       byId(`${role}-name`).textContent = transaction[role].name;
       byId(`${role}-phone`).textContent = transaction[role].phone;
-      byId(`${role}-avatar`).textContent = Array.from(transaction[role].name)[0]?.toUpperCase() || "—";
+      RePayAvatars.render(byId(`${role}-avatar`),transaction[role]);
     }
     byId("amount-value").textContent = new Intl.NumberFormat("en-SA", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(transaction.amountMinor / 100);
     byId("currency-label").hidden = false;
@@ -45,7 +45,7 @@ function render() {
 }
 function validate(data) {
   if (!data || !text(data.id) || !Number.isSafeInteger(data.amountMinor) || data.amountMinor <= 0 || data.currency !== "SAR" || !text(data.sender?.name) || !text(data.recipient?.name) || !text(data.accountName)) throw new Error("Invalid transaction");
-  return { id: text(data.id), status: data.status, accountName: text(data.accountName), sender: { name: text(data.sender.name), phone: text(data.sender.phone) }, recipient: { name: text(data.recipient.name), phone: text(data.recipient.phone) }, amountMinor: data.amountMinor, currency: "SAR" };
+  return { id: text(data.id), status: data.status, accountName: text(data.accountName), sender: { id:data.sender.id, avatarId:data.sender.avatarId, avatarUrl:data.sender.avatarUrl, name: text(data.sender.name), phone: text(data.sender.phone) }, recipient: { id:data.recipient.id, avatarId:data.recipient.avatarId, avatarUrl:data.recipient.avatarUrl, name: text(data.recipient.name), phone: text(data.recipient.phone) }, amountMinor: data.amountMinor, currency: "SAR" };
 }
 async function load() {
   if (config.demo) {
