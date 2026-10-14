@@ -29,9 +29,9 @@
 <dialog id="bank-sheet" class="bank-sheet" aria-labelledby="bank-title">
 <button class="sheet-handle" id="bank-resize" type="button" aria-label="توسيع الشيت" aria-expanded="false"></button>
 <div class="bank-sheet-header"><h2 id="bank-title">إضافة حساب بنكي</h2><button id="bank-close" type="button" aria-label="إغلاق">×</button></div>
-<div id="bank-saved" hidden><div id="bank-account-list"></div><button type="button" id="bank-add">+ إضافة حساب إضافي</button></div>
+<div id="bank-saved" hidden><div id="bank-account-list"></div><button type="button" id="bank-add" aria-label="إضافة حساب إضافي"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>
 <form id="bank-form">
-<label for="bank-iban">الآيبان</label><div class="iban-input-wrap"><input id="bank-iban" name="iban" type="text" inputmode="text" placeholder="SA00 0000 0000 0000 0000 0000" maxlength="29" autocomplete="off" dir="ltr" required><button type="button" id="bank-paste">لصق</button></div>
+<label for="bank-iban">الآيبان</label><div class="iban-input-wrap"><input id="bank-iban" name="iban" type="text" inputmode="text" placeholder="SA00 0000 0000 0000 0000 0000" maxlength="29" autocomplete="off" dir="ltr" required><button type="button" id="bank-paste" aria-label="لصق"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M8 5H5v16h14V5h-3M8 11h8M8 15h6"/></svg></button></div>
 <label for="bank-holder">الاسم الكامل</label><input id="bank-holder" name="accountHolder" type="text" placeholder="الاسم كما هو مسجّل في البنك" maxlength="120" autocomplete="name" required>
 <button id="bank-save" type="submit" disabled>حفظ الحساب</button>
 <button type="button" id="bank-form-cancel" hidden>رجوع</button>
