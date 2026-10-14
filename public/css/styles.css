@@ -1072,3 +1072,17 @@ button.profile-avatar{color:var(--ink);width:104px;height:104px;min-height:104px
 #saved-iban{font:400 11px "Nunito",sans-serif}
 #bank-edit{width:auto;min-height:36px;font-size:11px;padding:6px;background:transparent;color:#008CFF}
 #bank-status{font-size:12px;color:#777;line-height:1.7}
+#bank-resize{display:block;min-height:4px;padding:0;width:42px;height:4px;cursor:ns-resize;touch-action:none;position:relative;margin-bottom:24px}
+#bank-resize::before{content:"";position:absolute;inset:-12px -20px}
+.bank-sheet.expanded{height:85svh;max-height:85svh;overflow:auto}
+.bank-sheet:not(.expanded){max-height:80svh;overflow:auto}
+.iban-input-wrap{position:relative}
+#bank-form .iban-input-wrap input{padding-right:58px}
+#bank-paste{position:absolute;right:8px;top:8px;width:auto;min-height:32px;background:transparent;color:#008CFF;font-size:12px;padding:4px 8px}
+.bank-card-actions{display:flex;flex-direction:column;gap:4px;flex:0 0 auto!important}
+.bank-card-actions button{width:auto;min-height:28px;font-size:11px;background:transparent;color:#008CFF;padding:3px 6px}
+.bank-card-actions .bank-delete{color:#FF005E}
+.saved-bank-card+.saved-bank-card{margin-top:10px}
+.saved-holder{font-size:14px!important;font-weight:500}
+.saved-iban{font:400 11px "Nunito",sans-serif}
+#bank-add,#bank-form-cancel{background:transparent;color:#008CFF;font-size:13px;margin-top:12px;min-height:40px}

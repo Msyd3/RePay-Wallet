@@ -27,13 +27,14 @@
   <section class="transactions"><h2>العمليات</h2><div id="transaction-list"></div></section>
 </main>
 <dialog id="bank-sheet" class="bank-sheet" aria-labelledby="bank-title">
-<div class="sheet-handle" aria-hidden="true"></div>
+<button class="sheet-handle" id="bank-resize" type="button" aria-label="توسيع الشيت" aria-expanded="false"></button>
 <div class="bank-sheet-header"><h2 id="bank-title">إضافة حساب بنكي</h2><button id="bank-close" type="button" aria-label="إغلاق">×</button></div>
-<div id="bank-saved" hidden><div class="saved-bank-card"><img id="bank-logo" src="assets/bank.svg" width="44" height="44" alt=""><div><h3 id="saved-bank-name"></h3><p id="saved-holder"></p><bdi id="saved-iban" dir="ltr"></bdi></div><button id="bank-edit" type="button">تعديل</button></div></div>
+<div id="bank-saved" hidden><div id="bank-account-list"></div><button type="button" id="bank-add">+ إضافة حساب إضافي</button></div>
 <form id="bank-form">
-<label for="bank-iban">الآيبان</label><input id="bank-iban" name="iban" type="text" inputmode="text" placeholder="SA00 0000 0000 0000 0000 0000" maxlength="29" autocomplete="off" dir="ltr" required>
+<label for="bank-iban">الآيبان</label><div class="iban-input-wrap"><input id="bank-iban" name="iban" type="text" inputmode="text" placeholder="SA00 0000 0000 0000 0000 0000" maxlength="29" autocomplete="off" dir="ltr" required><button type="button" id="bank-paste">لصق</button></div>
 <label for="bank-holder">الاسم الكامل</label><input id="bank-holder" name="accountHolder" type="text" placeholder="الاسم كما هو مسجّل في البنك" maxlength="120" autocomplete="name" required>
 <button id="bank-save" type="submit" disabled>حفظ الحساب</button>
+<button type="button" id="bank-form-cancel" hidden>رجوع</button>
 </form>
 <p id="bank-status" role="status" hidden></p>
 </dialog>
