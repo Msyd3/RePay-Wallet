@@ -15,6 +15,8 @@
   <script src="js/config.js"></script>
   <script src="js/avatars.js"></script>
   <script src="js/pages/home.js" defer></script>
+  <script src="js/banking.js"></script>
+  <script src="js/pages/bank-account.js" defer></script>
 </head>
 <body>
 <main class="home-page">
@@ -24,5 +26,16 @@
   <p id="home-status" role="status" hidden></p>
   <section class="transactions"><h2>العمليات</h2><div id="transaction-list"></div></section>
 </main>
+<dialog id="bank-sheet" class="bank-sheet" aria-labelledby="bank-title">
+<div class="sheet-handle" aria-hidden="true"></div>
+<div class="bank-sheet-header"><h2 id="bank-title">إضافة حساب بنكي</h2><button id="bank-close" type="button" aria-label="إغلاق">×</button></div>
+<div id="bank-saved" hidden><div class="saved-bank-card"><img id="bank-logo" src="assets/bank.svg" width="44" height="44" alt=""><div><h3 id="saved-bank-name"></h3><p id="saved-holder"></p><bdi id="saved-iban" dir="ltr"></bdi></div><button id="bank-edit" type="button">تعديل</button></div></div>
+<form id="bank-form">
+<label for="bank-iban">الآيبان</label><input id="bank-iban" name="iban" type="text" inputmode="text" placeholder="SA00 0000 0000 0000 0000 0000" maxlength="29" autocomplete="off" dir="ltr" required>
+<label for="bank-holder">الاسم الكامل</label><input id="bank-holder" name="accountHolder" type="text" placeholder="الاسم كما هو مسجّل في البنك" maxlength="120" autocomplete="name" required>
+<button id="bank-save" type="submit" disabled>حفظ الحساب</button>
+</form>
+<p id="bank-status" role="status" hidden></p>
+</dialog>
 </body>
 </html>

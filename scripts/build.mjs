@@ -9,7 +9,7 @@ await cp('public', output, { recursive: true });
 if (demo) {
   const config = await readFile('public/js/config.js', 'utf8');
   const fixture = await readFile('tests/fixtures/demo.json', 'utf8');
-  await writeFile(`${output}/js/config.js`, config.replace('demo: false', 'demo: true') + `\nwindow.REPAY_CONFIG = Object.freeze({ ...window.REPAY_CONFIG, onPay: null, onCancel: null, onRequestOtp: null, onResendOtp: null, onVerifyOtp: null, onLogout: null, onSaveProfile: null, onUploadAvatar: null });\nwindow.REPAY_DEMO = ${fixture};\n`);
+  await writeFile(`${output}/js/config.js`, config.replace('demo: false', 'demo: true') + `\nwindow.REPAY_CONFIG = Object.freeze({ ...window.REPAY_CONFIG, onPay: null, onCancel: null, onRequestOtp: null, onResendOtp: null, onVerifyOtp: null, onLogout: null, onSaveProfile: null, onUploadAvatar: null, onLoadBankAccount: null, onSaveBankAccount: null });\nwindow.REPAY_DEMO = ${fixture};\n`);
 }
 for (const name of await readdir(output)) {
   if (!name.endsWith('.html')) continue;

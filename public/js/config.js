@@ -8,6 +8,8 @@ window.REPAY_CONFIG = Object.freeze({
   onResendOtp: data => RePay.api("/api/auth/otp/resend", { method: "POST", data }),
   onLogout: async () => { await RePay.api("/api/auth/logout", { method: "POST" }); RePay.clearChallenge(); },
   onUploadAvatar: data => RePay.api("/api/profile/avatar", { method: "POST", data }),
+  onLoadBankAccount: () => RePay.api("/api/bank-account"),
+  onSaveBankAccount: data => RePay.api("/api/bank-account", { method: "PUT", data }),
   onSaveProfile: data => RePay.api("/api/profile", { method: "PATCH", data }),
   // Connect the approved payment provider SDK and server verification before enabling payment.
   onPay: null,
