@@ -5,7 +5,7 @@ const homeStatus = document.getElementById("home-status");
 let homeLanguage = localStorage.getItem("repay-language") === "en" ? "en" : "ar";
 let wallet = null;
 const homeCopy = {
-  ar: { balance: "الرصيد", transfer: "تحويل سريع", withdraw: "سحب", operations: "العمليات", profile: "الصفحة الشخصية", logout: "تسجيل خروج", language: "English", received: "حوالة واردة من", sent: "حوالة صادرة إلى", to: "إلى", empty: "لا توجد عمليات بعد", error: "تعذر تحميل المحفظة. حاول مرة أخرى." },
+  ar: { balance: "الرصيد", transfer: "تحويل سريع", withdraw: "سحب", operations: "العمليات", profile: "الصفحة الشخصية", logout: "تسجيل خروج", language: "English", received: "حوالة واردة من", sent: "حوالة صادرة إلى", to: "إلى", empty: "ما عندك عمليات للحين", error: "تعذر تحميل المحفظة. حاول مرة أخرى." },
   en: { balance: "Balance", transfer: "Transfer", withdraw: "Withdraw", operations: "Activity", profile: "Profile", logout: "Log out", language: "العربية", received: "Received from", sent: "Sent to", to: "to", empty: "No transactions yet", error: "Unable to load your wallet. Please try again." }
 };
 function closeAccountMenu() { accountMenu.hidden = true; accountToggle.setAttribute("aria-expanded", "false"); }
@@ -27,7 +27,13 @@ function renderWallet() {
   document.getElementById("balance-value").textContent = RePay.money(wallet.balanceMinor, 0);
   accountToggle.textContent = Array.from(wallet.displayName)[0]?.toUpperCase() || "—";
   accountToggle.setAttribute("aria-label", wallet.displayName);
-  if (!wallet.transactions.length) list.append(node("p", "empty-state", t.empty));
+  if (!wallet.transactions.length) {
+    const empty = node("div", "empty-state");
+    const emoji = node("span", "empty-state-emoji", "💸");
+    emoji.setAttribute("aria-hidden", "true");
+    empty.append(emoji, node("p", "", t.empty));
+    list.append(empty);
+  }
   for (const item of wallet.transactions) {
     const card = node("article", "transaction-card");
     const time = node("time", "", new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Riyadh" }).format(new Date(item.createdAt))); time.dateTime = item.createdAt;
