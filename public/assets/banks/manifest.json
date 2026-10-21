@@ -1,0 +1,127 @@
+[
+  {
+    "imageNumber": 1,
+    "originalFile": "_x39_u7Tlw_00000148636920449813617690000003798258439039256462_.png",
+    "asset": "bank-01.png",
+    "bankName": "مصرف الراجحي",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 2,
+    "originalFile": "1010.SR 1.png",
+    "asset": "bank-02.png",
+    "bankName": "بنك الرياض",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 3,
+    "originalFile": "1180.SR_BIG 1.png",
+    "asset": "bank-03.png",
+    "bankName": "البنك الأهلي السعودي (SNB)",
+    "status": "identified"
+  },
+  {
+    "imageNumber": 4,
+    "originalFile": "Clip path group.png",
+    "asset": "bank-04.png",
+    "bankName": "D360 Bank",
+    "status": "identified"
+  },
+  {
+    "imageNumber": 5,
+    "originalFile": "Group 128.png",
+    "asset": "bank-05.png",
+    "bankName": "STC Bank",
+    "status": "identified"
+  },
+  {
+    "imageNumber": 6,
+    "originalFile": "Group-1.png",
+    "asset": "bank-06.png",
+    "bankName": "نيو",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 7,
+    "originalFile": "Group.png",
+    "asset": "bank-07.png",
+    "bankName": "البنك الفرنسي",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 8,
+    "originalFile": "Layer 1.png",
+    "asset": "bank-08.png",
+    "bankName": "السعودي للاستثمار",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 9,
+    "originalFile": "Layer 2.png",
+    "asset": "bank-09.png",
+    "bankName": "البلاد",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 10,
+    "originalFile": "Layer.png",
+    "asset": "bank-10.png",
+    "bankName": "الجزيرة",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 11,
+    "originalFile": "Layer-1.png",
+    "asset": "bank-11.png",
+    "bankName": "العربي",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 12,
+    "originalFile": "meem-logo 1.png",
+    "asset": "bank-12.png",
+    "bankName": "ميم — بنك الخليج الدولي",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 13,
+    "originalFile": "unnamed 1.png",
+    "asset": "bank-13.png",
+    "bankName": "برق",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 14,
+    "originalFile": "Vector-1.png",
+    "asset": "bank-14.png",
+    "bankName": "يورباي",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 15,
+    "originalFile": "Vector.png",
+    "asset": "bank-15.png",
+    "bankName": "الإنماء",
+    "status": "identified",
+    "identifiedBy": "user"
+  },
+  {
+    "imageNumber": 16,
+    "originalFile": "XMLID_1_.png",
+    "asset": "bank-16.png",
+    "bankName": "الأول",
+    "status": "identified",
+    "identifiedBy": "user"
+  }
+]

@@ -7,9 +7,6 @@
   <meta name="referrer" content="no-referrer">
   <title>RePay | الصفحة الشخصية</title>
   <meta name="description" content="راجع بيانات المرسل والمستفيد قبل متابعة الدفع عبر RePay.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/core.js"></script>
   <script src="js/config.js"></script>
@@ -30,9 +27,10 @@
 </main>
 <dialog id="avatar-dialog" class="avatar-dialog" aria-labelledby="avatar-title">
 <div class="avatar-dialog-header"><h2 id="avatar-title">اختر صورة حسابك</h2><button type="button" id="avatar-close" aria-label="إغلاق">×</button></div>
-<div id="avatar-grid" class="avatar-grid"></div>
-<button type="button" id="avatar-album" class="avatar-album">اختيار من الألبوم</button>
-<input id="avatar-file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
-<p id="avatar-error" role="status" hidden></p>
+<div id="avatar-preview" class="profile-avatar avatar-picker-preview" aria-hidden="true"></div>
+<div class="avatar-tabs" role="group" aria-label="نوع الأفاتار"><button type="button" id="avatar-emoji-tab" class="avatar-mode">إيموجي</button><button type="button" id="avatar-color-tab" class="avatar-mode">لون</button></div>
+<div id="avatar-emoji-panel"><div id="avatar-grid" class="avatar-grid"></div></div>
+<div id="avatar-color-panel"><div id="avatar-colors" class="avatar-colors"></div></div>
+<button type="button" id="avatar-done" class="avatar-done">تم</button>
 </dialog>
 </body></html>

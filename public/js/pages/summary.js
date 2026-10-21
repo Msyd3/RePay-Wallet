@@ -45,7 +45,7 @@ function render() {
 }
 function validate(data) {
   if (!data || !text(data.id) || !Number.isSafeInteger(data.amountMinor) || data.amountMinor <= 0 || data.currency !== "SAR" || !text(data.sender?.name) || !text(data.recipient?.name) || !text(data.accountName)) throw new Error("Invalid transaction");
-  return { id: text(data.id), status: data.status, accountName: text(data.accountName), sender: { id:data.sender.id, avatarId:data.sender.avatarId, avatarUrl:data.sender.avatarUrl, name: text(data.sender.name), phone: text(data.sender.phone) }, recipient: { id:data.recipient.id, avatarId:data.recipient.avatarId, avatarUrl:data.recipient.avatarUrl, name: text(data.recipient.name), phone: text(data.recipient.phone) }, amountMinor: data.amountMinor, currency: "SAR" };
+  return { id: text(data.id), status: data.status, accountName: text(data.accountName), sender: { id:data.sender.id, avatar:data.sender.avatar, name: text(data.sender.name), phone: text(data.sender.phone) }, recipient: { id:data.recipient.id, avatar:data.recipient.avatar, name: text(data.recipient.name), phone: text(data.recipient.phone) }, amountMinor: data.amountMinor, currency: "SAR" };
 }
 async function load() {
   if (config.demo) {

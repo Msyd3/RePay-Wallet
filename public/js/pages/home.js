@@ -38,7 +38,7 @@ function renderWallet() {
     const card = node("article", "transaction-card");
     const time = node("time", "", new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Riyadh" }).format(new Date(item.createdAt))); time.dateTime = item.createdAt;
     const row = node("div", "transaction-details");
-    const avatar = node("span", "transaction-dot"); RePayAvatars.render(avatar,{id:item.userId,avatarId:item.avatarId,avatarUrl:item.avatarUrl}); avatar.setAttribute("aria-hidden", "true");
+    const avatar = node("span", "transaction-dot"); RePayAvatars.render(avatar,{id:item.userId,name:item.name,avatar:item.avatar}); avatar.setAttribute("aria-hidden", "true");
     const copy = node("div", "transaction-copy");
     const title = node("h3"); title.append(document.createTextNode(`${item.direction === "incoming" ? t.received : t.sent} `), node("bdi", "", item.name));
     if (item.note) title.append(document.createTextNode(` · ${item.note}`));

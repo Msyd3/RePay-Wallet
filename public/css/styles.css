@@ -1,3 +1,43 @@
+@font-face {
+  font-family: "Tajarib";
+  src: url("../assets/fonts/Tajarib_Typeface_Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tajarib";
+  src: url("../assets/fonts/Tajarib_Typeface_Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tajarib";
+  src: url("../assets/fonts/Tajarib_Typeface_Medium.otf") format("opentype");
+  font-weight: 500 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tajarib";
+  src: url("../assets/fonts/Tajarib_Typeface_Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tajarib";
+  src: url("../assets/fonts/Tajarib_Typeface_Black.otf") format("opentype");
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Shared foundations and page components. Keep responsive overrides scoped. */
 :root {
   color-scheme: light;
@@ -48,7 +88,7 @@ h1 {
   place-items: center;
   background: var(--ink);
   color: white;
-  font-family: Arial,sans-serif;
+  font-family: "Tajarib",sans-serif;
   font-size: 15px;
   font-weight: 700;
 }
@@ -118,10 +158,10 @@ button:active {
 body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
-  font-family: "Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
 }
 html[lang="en"] body {
-  font-family: "Nunito","Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
 }
 .brand {
   display: flex;
@@ -140,7 +180,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  font: 600 17px/1.3 Arial,Tahoma,sans-serif;
+  font: 700 17px/1.4 "Tajarib",sans-serif;
   cursor: pointer;
   padding: 9px 12px;
   -webkit-tap-highlight-color: transparent;
@@ -158,7 +198,7 @@ button {
   padding: 8px 10px;
   background: #f6f7f7;
   color: var(--ink);
-  font-family: "Nunito","Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
   font-size: 12px;
   border: 1px solid #eee;
 }
@@ -166,7 +206,7 @@ button {
   background: #eee;
 }
 .avatar,.apple-pay,.powered {
-  font-family: "Nunito","Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
 }
 .person p {
   margin: 0;
@@ -261,14 +301,18 @@ a:focus-visible {
 .amount-card p {
   margin: 0;
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 800;
+  line-height: 1;
   display: inline-flex;
   direction: ltr;
   align-items: center;
   gap: 5px;
 }
+.amount-card #currency-label{display:flex;align-items:center;line-height:1}
+.amount-card .sar-symbol{display:block;width:.82em;height:.9em;font-size:22px;vertical-align:middle}
+.amount-card #amount-value{font-weight:800}
 #amount-value,#sender-phone,#recipient-phone {
-  font-family: "Nunito",sans-serif;
+  font-family: "Tajarib",sans-serif;
   font-variant-numeric: lining-nums tabular-nums;
   direction: ltr;
 }
@@ -326,7 +370,7 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  font-family: "Nunito",sans-serif;
+  font-family: "Tajarib",sans-serif;
   font-weight: 800;
   font-size: 40px;
   line-height: 1.3;
@@ -384,28 +428,30 @@ a:focus-visible {
     padding-top: max(40px,env(safe-area-inset-top));
   }
 }
+.failure-body{background:#ff0060}
 .failure-page {
-  color: #ff0060;
+  color: #fff;
 }
 .failure-page .success-icon {
-  filter: invert(20%) sepia(98%) saturate(6314%) hue-rotate(330deg) brightness(100%) contrast(112%);
+  filter: brightness(0) invert(1);
 }
 .failure-page h1 {
   margin-top: 34px;
   font-size: 22px;
+  font-weight: 900;
 }
 .failure-description {
-  color: var(--ink);
+  color: #fff;
   font-size: 15px;
   font-weight: 500;
   line-height: 1.8;
-  margin: 16px 0 0;
+  margin: 6px 0 0;
 }
 .failure-page .return-button {
-  background: var(--ink);
+  background: #cf004e;
 }
 .failure-page .return-button:hover {
-  background: #40454f;
+  background: #bd0047;
 }
 .note-section {
   margin-top: 12px;
@@ -456,7 +502,7 @@ button:focus-visible,a:focus-visible,#transaction-note:focus {
   outline-color: #008CFF;
 }
 #sender-name,#recipient-name,#transaction-note {
-  font-family: "Nunito","Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
 }
 .home-page {
   max-width: 430px;
@@ -474,7 +520,7 @@ button:focus-visible,a:focus-visible,#transaction-note:focus {
   height: 48px;
   border-radius: 50%;
   background: var(--card);
-  font: 800 23px "Nunito",sans-serif;
+  font: 800 23px "Tajarib",sans-serif;
 }
 .balance-card {
   padding: 20px 20px 16px;
@@ -493,7 +539,7 @@ button:focus-visible,a:focus-visible,#transaction-note:focus {
   direction: ltr;
   justify-content: flex-end;
   margin: 20px 0 0;
-  font: 800 48px/1.2 "Nunito",sans-serif;
+  font: 800 48px/1.2 "Tajarib",sans-serif;
 }
 .home-actions {
   display: flex;
@@ -517,7 +563,7 @@ button:focus-visible,a:focus-visible,#transaction-note:focus {
   min-width: 0;
 }
 .transaction-copy bdi,.transaction-amount {
-  font-family: "Nunito","Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
 }
 .transaction-amount {
   display: flex;
@@ -559,7 +605,7 @@ button:focus-visible,a:focus-visible,#transaction-note:focus {
   height: 34px;
   background: #e5f5ed;
   color: #27885b;
-  font-family: "Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
   font-size: 15px;
   font-weight: 500;
 }
@@ -637,7 +683,7 @@ button:focus-visible,a:focus-visible,#transaction-note:focus {
   background: #e4f2ff;
 }
 .emoji-more {
-  font-family: "Nunito",sans-serif;
+  font-family: "Tajarib",sans-serif;
   font-size: 16px;
   color: #008CFF;
   border: 1px dashed #c6dff5;
@@ -684,7 +730,7 @@ button.home-avatar {
   width: 100%;
   text-align: right;
   padding: 12px;
-  font: 400 13px "Rubik",sans-serif;
+  font: 400 13px "Tajarib",sans-serif;
   color: var(--ink);
   background: white;
   text-decoration: none;
@@ -721,7 +767,7 @@ button.home-avatar {
   height: 104px;
   border-radius: 50%;
   background: var(--card);
-  font: 800 38px "Nunito",sans-serif;
+  font: 800 38px "Tajarib",sans-serif;
 }
 .profile-identity h1 {
   font-size: 20px;
@@ -756,7 +802,7 @@ button.home-avatar {
   outline: 0;
   color: #999;
   text-align: left;
-  font: 400 14px "Nunito","Rubik",sans-serif;
+  font: 400 14px "Tajarib",sans-serif;
 }
 .profile-field:focus-within {
   outline: 2px solid #008CFF;
@@ -790,11 +836,11 @@ button.home-avatar {
   font-size: 12px;
   line-height: 1.6;
   margin-bottom: 3px;
-  font-family: "Nunito","Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
 }
 html[lang="en"] .account-menu a,html[lang="en"] .account-menu button {
   text-align: left;
-  font-family: "Nunito","Rubik",sans-serif;
+  font-family: "Tajarib",sans-serif;
 }
 .home-header>a {
   display: flex;
@@ -816,7 +862,7 @@ html[lang="en"] .account-menu a,html[lang="en"] .account-menu button {
   direction: ltr;
   text-align: left;
   color: #999;
-  font: 400 12px "Nunito",sans-serif;
+  font: 400 12px "Tajarib",sans-serif;
   margin-bottom: 22px;
   font-size: 10px;
 }
@@ -973,7 +1019,7 @@ html[lang="en"] .transaction-card time {
   background: var(--card);
   padding: 12px;
   color: var(--ink);
-  font: 500 14px "Nunito",sans-serif;
+  font: 500 14px "Tajarib",sans-serif;
   direction: ltr;
   text-align: right;
   font-size: 16px;
@@ -993,7 +1039,7 @@ html[lang="en"] .transaction-card time {
   background: var(--card);
   padding: 12px;
   color: var(--ink);
-  font: 500 16px "Nunito",sans-serif;
+  font: 500 16px "Tajarib",sans-serif;
   direction: ltr;
   text-align: center;
   letter-spacing: 5px;
@@ -1022,7 +1068,7 @@ html[lang="en"] .transaction-card time {
   opacity: 1;
 }
 #resend-timer {
-  font-family: "Nunito",sans-serif;
+  font-family: "Tajarib",sans-serif;
   direction: ltr;
   unicode-bidi: isolate;
 }
@@ -1031,7 +1077,7 @@ html[lang="en"] .transaction-card time {
   top: 24px;
   left: 20px;
   color: var(--ink);
-  font: 32px/1 "Nunito",sans-serif;
+  font: 32px/1 "Tajarib",sans-serif;
   text-decoration: none;
   padding: 4px;
   direction: ltr;
@@ -1060,7 +1106,7 @@ button.profile-avatar{color:var(--ink);width:104px;height:104px;min-height:104px
 .bank-sheet-header h2{font-size:18px}
 #bank-close{width:32px;min-height:32px;padding:0;background:var(--card);color:var(--ink);font-size:22px}
 #bank-form label{display:block;font-size:13px;margin:14px 2px 8px}
-#bank-form input{width:100%;height:48px;border:0;border-radius:14px;background:var(--card);padding:12px;font:400 16px "Nunito","Rubik",sans-serif;color:var(--ink)}
+#bank-form input{width:100%;height:48px;border:0;border-radius:14px;background:var(--card);padding:12px;font:400 16px "Tajarib",sans-serif;color:var(--ink)}
 #bank-form input::placeholder{font-size:11px;color:#999}
 #bank-form input:focus{outline:2px solid #008CFF;outline-offset:2px}
 #bank-save{margin-top:24px;background:#008CFF;border-radius:24px;font-size:14px}
@@ -1069,7 +1115,7 @@ button.profile-avatar{color:var(--ink);width:104px;height:104px;min-height:104px
 .saved-bank-card>div{flex:1;min-width:0}
 .saved-bank-card h3{font-size:14px;margin:0 0 6px}
 .saved-bank-card p{font-size:12px;margin:0 0 5px;overflow-wrap:anywhere}
-#saved-iban{font:400 11px "Nunito",sans-serif}
+#saved-iban{font:400 11px "Tajarib",sans-serif}
 #bank-edit{width:auto;min-height:36px;font-size:11px;padding:6px;background:transparent;color:#008CFF}
 #bank-status{font-size:12px;color:#777;line-height:1.7}
 #bank-resize{display:block;min-height:4px;padding:0;width:42px;height:4px;cursor:ns-resize;touch-action:none;position:relative;margin-bottom:24px}
@@ -1084,13 +1130,65 @@ button.profile-avatar{color:var(--ink);width:104px;height:104px;min-height:104px
 .bank-card-actions .bank-delete{color:#FF005E}
 .saved-bank-card+.saved-bank-card{margin-top:10px}
 .saved-holder{font-size:14px!important;font-weight:500}
-.saved-iban{font:400 11px "Nunito",sans-serif}
+.saved-iban{font:400 11px "Tajarib",sans-serif}
 #bank-add,#bank-form-cancel{background:transparent;color:#008CFF;font-size:13px;margin-top:12px;min-height:40px}
 
 .bank-card-actions{position:relative}
-.bank-card-actions .bank-more{font:700 24px/1 "Nunito",sans-serif;min-height:36px;width:36px;color:var(--ink);background:#fff;border-radius:12px}
+.bank-card-actions .bank-more{font:700 24px/1 "Tajarib",sans-serif;min-height:36px;width:36px;color:var(--ink);background:#fff;border-radius:12px}
 .bank-options-menu{position:absolute;top:40px;inset-inline-end:0;z-index:5;min-width:112px;background:#fff;border:1px solid #eee;border-radius:12px;box-shadow:0 6px 20px #0001;padding:4px}
 .bank-options-menu button{display:block;width:100%;text-align:start;min-height:36px;padding:8px 12px}
 #bank-add{width:42px;height:42px;margin:16px auto 0;background:#eff7ff;border-radius:50%;padding:0}
 #bank-paste{width:32px;padding:4px}
 #bank-account-list{padding-bottom:20px}
+
+.bank-card-actions .bank-more{background:var(--card)}
+.saved-bank-card>img{width:34px;height:34px;flex:0 0 34px;box-sizing:border-box;border-radius:50%;object-fit:contain;padding:5px;background:#fff;overflow:hidden}
+[data-avatar-color="blue"]{background:#e1f1ff!important;color:#0077d9!important}
+[data-avatar-color="mint"]{background:#ddf6ec!important;color:#248464!important}
+[data-avatar-color="pink"]{background:#ffe4ed!important;color:#bb416c!important}
+[data-avatar-color="purple"]{background:#eee4ff!important;color:#8053b5!important}
+[data-avatar-color="yellow"]{background:#fff3cd!important;color:#987319!important}
+[data-avatar-color="peach"]{background:#ffeadc!important;color:#b36132!important}
+[data-avatar-color="gray"]{background:#eef0f3!important;color:#626b77!important}
+.avatar-character{display:grid;place-items:center;width:100%;height:100%;font-size:inherit;line-height:1;font-weight:900;text-align:center;text-box:trim-both cap alphabetic}
+.avatar-character[lang="ar"]{font-family:"Tajarib",sans-serif}
+.avatar-character[lang="en"]{font-family:"Tajarib",sans-serif}
+.avatar-character[lang="en"]{font-size:1.12em}
+.avatar-picker-preview{margin:0 auto 16px;font-size:38px}
+.avatar-mode{background:var(--card);color:var(--ink);font-size:13px;border-radius:14px;min-height:40px}
+.avatar-section-label{font-size:12px;color:#888;font-weight:400;margin:18px 0 10px}
+.avatar-grid{grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;max-height:none;padding:4px}
+.avatar-emoji-option{font-size:23px;min-height:36px;border-radius:10px}
+.avatar-colors{display:flex;justify-content:space-between;gap:8px;padding:4px}
+.avatar-color-choice{width:32px;height:32px;min-height:32px;padding:0;border-radius:50%}
+.avatar-mode[aria-pressed="true"],.avatar-color-choice[aria-pressed="true"]{outline:2px solid #008CFF;outline-offset:3px}
+.avatar-done{background:#008CFF;margin-top:24px;border-radius:24px;font-size:14px}
+
+[data-avatar-color="blue"]{background:#b8deff!important;color:#006ac2!important}
+[data-avatar-color="mint"]{background:#b5e8d5!important;color:#206b52!important}
+[data-avatar-color="pink"]{background:#f6bfd2!important;color:#9d3258!important}
+[data-avatar-color="purple"]{background:#d5bdf4!important;color:#674095!important}
+[data-avatar-color="yellow"]{background:#f4dfa0!important;color:#806013!important}
+[data-avatar-color="peach"]{background:#f4ccae!important;color:#975127!important}
+[data-avatar-color="gray"]{background:#cfd5dd!important;color:#4b5563!important}
+[data-avatar-color="emoji"]{background:#f3f4f5!important;color:var(--ink)!important}
+.avatar-tabs{display:flex;gap:8px;margin-bottom:20px}
+.avatar-tabs .avatar-mode{flex:1;background:#f3f4f5;color:#777;outline:none}
+.avatar-tabs .avatar-mode[aria-pressed="true"]{background:#008CFF;color:#fff;outline:none}
+#avatar-colors{margin-top:26px;margin-bottom:16px}
+
+/* Consistent hierarchy for actions, headings and supporting copy. */
+.success-body{background:#00E0BA}
+.success-body .success-page{color:#fff}
+.success-body .success-icon,.success-body .success-amount img{filter:brightness(0) invert(1)}
+.success-body .success-content h1{font-weight:900;margin-top:6px}
+.success-body .success-amount{margin-bottom:6px}
+.success-body .return-button{background:#008570;color:#fff}
+.success-body .return-button:hover{background:#007562}
+button,.return-button{font-weight:700;letter-spacing:0}
+#pay-button,#login-next,.profile-save,#bank-save,.avatar-done,.home-actions button,.return-button{font-weight:800;line-height:1.5}
+.account-menu a,.account-menu button,.bank-options-menu button,.avatar-mode,#resend-code{font-weight:700;line-height:1.5}
+h1,h2,h3{letter-spacing:0;text-wrap:balance}
+h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font-weight:700}
+.person-copy p,.transaction-copy p,.profile-field input,#bank-form input{line-height:1.6}
+#profile-status,#bank-status,.login-status{line-height:1.7}

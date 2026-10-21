@@ -8,7 +8,7 @@ let loaded = false;
 let saving = false;
 let currentProfile = null;
 let avatarSelection = null;
-let previewUrl = null;
+let avatarDraft = null;
 const avatarButton = document.getElementById("profile-avatar");
 const avatarDialog = document.getElementById("avatar-dialog");
 function message(text) { status.hidden = false; status.textContent = text; }
@@ -22,15 +22,14 @@ function applyProfile(data) {
   originalValues = fields.map(field => field.value); loaded = true;
   fields.forEach(field => { field.readOnly = true; }); updateSaveVisibility();
 }
-form.addEventListener("input", () => { fields[2].value = RePay.digits(fields[2].value); updateSaveVisibility(); });
+form.addEventListener("input", () => { fields[2].value = RePay.digits(fields[2].value); updateSaveVisibility(); if(loaded)RePayAvatars.render(avatarButton,{...currentProfile,fullName:fields[0].value},true,avatarSelection); });
 document.getElementById("edit-profile").addEventListener("click", () => { if (!loaded || saving) return; fields.forEach(field => { field.readOnly = false; }); fields[0].focus(); });
 form.addEventListener("submit", async event => {
   event.preventDefault(); if (saving || !changed()) return;
   if (window.REPAY_CONFIG.demo) {
     if (avatarSelection) {
       try {
-        const stored = avatarSelection.id || await new Promise((resolve,reject) => { const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(avatarSelection.blob); });
-        localStorage.setItem("repay-demo-avatar",stored); avatarSelection=null; updateSaveVisibility();
+        localStorage.setItem("repay-demo-avatar-style",JSON.stringify(avatarSelection)); avatarSelection=null; updateSaveVisibility();
         message("تم حفظ صورة المعاينة على هذا الجهاز.");
       } catch { message("تعذر حفظ الصورة."); }
     } else message("هذه معاينة؛ البيانات لم تُحفظ على الخادم.");
@@ -40,12 +39,7 @@ form.addEventListener("submit", async event => {
   if (!data.fullName || !form.reportValidity()) return;
   saving = true; fields.forEach(field => { field.readOnly = true; }); updateSaveVisibility();
   try {
-    if (avatarSelection?.blob) {
-      const upload = new FormData();upload.append("avatar",avatarSelection.blob,"avatar.jpg");
-      const uploaded = await window.REPAY_CONFIG.onUploadAvatar(upload);
-      if (!RePayAvatars.safeUrl(uploaded?.avatarUrl)) throw Error("Invalid avatar response");
-      data.avatarUrl=uploaded.avatarUrl;
-    } else if (avatarSelection?.id) data.avatarId=avatarSelection.id;
+    if (avatarSelection) data.avatar=RePayAvatars.normalize(avatarSelection);
     const saved = await window.REPAY_CONFIG.onSaveProfile(data); applyProfile(saved); message("تم حفظ البيانات"); }
   catch { fields.forEach(field => { field.readOnly = false; }); message("تعذر حفظ البيانات. حاول مرة أخرى."); }
   finally { saving = false; updateSaveVisibility(); }
@@ -55,30 +49,31 @@ form.addEventListener("submit", async event => {
   catch (error) { if (error.status === 401) location.replace("login.html"); else message("تعذر تحميل بيانات الحساب."); }
 })();
 
-function selectAvatar(selection,src) {
- if(saving)return;
- if(previewUrl)URL.revokeObjectURL(previewUrl);
- previewUrl=selection.blob?src:null;avatarSelection=selection;
- const img=document.createElement("img");img.src=src;img.alt="";img.className="user-avatar-image";avatarButton.replaceChildren(img);
- updateSaveVisibility();avatarDialog.close();
+const pickerPreview=document.getElementById('avatar-preview');
+function renderAvatarDraft(){
+ RePayAvatars.render(pickerPreview,{...currentProfile,fullName:fields[0].value},false,avatarDraft);
+ document.querySelectorAll('[data-avatar-emoji]').forEach(button=>button.setAttribute('aria-pressed',String(avatarDraft.kind==='emoji'&&button.dataset.avatarEmoji===avatarDraft.emoji)));
+ document.querySelectorAll('[data-avatar-choice-color]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.avatarChoiceColor===avatarDraft.color)));
+ document.getElementById('avatar-color-tab').setAttribute('aria-pressed',String(avatarDraft.kind==='initial'));
+ document.getElementById('avatar-emoji-tab').setAttribute('aria-pressed',String(avatarDraft.kind==='emoji'));
+ document.getElementById('avatar-color-panel').hidden=avatarDraft.kind!=='initial';
+ document.getElementById('avatar-emoji-panel').hidden=avatarDraft.kind!=='emoji';
 }
-for(const preset of RePayAvatars.presets) {
- const button=document.createElement("button");button.type="button";button.className="avatar-option";button.dataset.avatarId=preset.id;button.setAttribute("aria-label",preset.label);
- const img=document.createElement("img");img.src=preset.src;img.alt="";img.className="user-avatar-image";button.append(img);
- button.addEventListener("click",()=>selectAvatar({id:preset.id},preset.src));document.getElementById("avatar-grid").append(button);
+for(const emoji of RePayAvatars.emojis){
+ const button=document.createElement('button');button.type='button';button.className='avatar-option avatar-emoji-option';button.textContent=emoji;button.dataset.avatarEmoji=emoji;button.setAttribute('aria-label',emoji);
+ button.addEventListener('click',()=>{avatarDraft.kind='emoji';avatarDraft.emoji=emoji;renderAvatarDraft();});document.getElementById('avatar-grid').append(button);
 }
-avatarButton.addEventListener("click",()=>{
- if(!loaded || saving)return;
- document.querySelectorAll(".avatar-option").forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.avatarId===(avatarSelection?.id || currentProfile.avatarId))));
- avatarDialog.showModal();
+const colorLabels={blue:'أزرق',mint:'أخضر',pink:'وردي',purple:'بنفسجي',yellow:'أصفر',peach:'خوخي',gray:'رمادي'};
+for(const color of RePayAvatars.colors){
+ const button=document.createElement('button');button.type='button';button.className='avatar-color-choice';button.dataset.avatarColor=color;button.dataset.avatarChoiceColor=color;button.setAttribute('aria-label',colorLabels[color]);
+ button.addEventListener('click',()=>{avatarDraft.color=color;avatarDraft.kind='initial';renderAvatarDraft();});document.getElementById('avatar-colors').append(button);
+}
+avatarButton.addEventListener('click',()=>{if(!loaded||saving)return;avatarDraft={...(avatarSelection||RePayAvatars.selection(currentProfile,true))};renderAvatarDraft();avatarDialog.showModal();});
+document.getElementById('avatar-color-tab').addEventListener('click',()=>{avatarDraft.kind='initial';renderAvatarDraft();});
+document.getElementById('avatar-emoji-tab').addEventListener('click',()=>{avatarDraft.kind='emoji';renderAvatarDraft();});
+document.getElementById('avatar-close').addEventListener('click',()=>avatarDialog.close());
+document.getElementById('avatar-done').addEventListener('click',()=>{
+ const current=RePayAvatars.selection(currentProfile,true);
+ avatarSelection=JSON.stringify(avatarDraft)===JSON.stringify(current)?null:{...avatarDraft};
+ RePayAvatars.render(avatarButton,{...currentProfile,fullName:fields[0].value},false,avatarDraft);updateSaveVisibility();avatarDialog.close();
 });
-document.getElementById("avatar-close").addEventListener("click",()=>avatarDialog.close());
-const fileInput=document.getElementById("avatar-file");
-document.getElementById("avatar-album").addEventListener("click",()=>fileInput.click());
-fileInput.addEventListener("change",async()=>{
- const error=document.getElementById("avatar-error");error.hidden=true;
- try { const blob=await RePayAvatars.album(fileInput.files[0]);selectAvatar({blob},URL.createObjectURL(blob)); }
- catch(err){error.hidden=false;error.textContent=err.message;}
- finally{fileInput.value="";}
-});
-window.addEventListener("pagehide",()=>{if(previewUrl)URL.revokeObjectURL(previewUrl);});

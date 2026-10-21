@@ -41,9 +41,7 @@
 
 ## Avatars
 
-عند إنشاء الحساب يختار الخادم avatarId عشوائيًا من أسماء ملفات public/assets/avatars ويحفظه. ترجع wallet وprofile نفس id وavatarId أو avatarUrl. لكل عملية userId ثابت وصورة الطرف الآخر، وsender/recipient في الملخص يحملان id والصورة. اختيار الواجهة الافتراضي ثابت في المتصفح فقط إلى أن يرد اختيار الخادم.
-
-PATCH /api/profile يقبل avatarId من القائمة أو avatarUrl معتمدًا من خدمة الرفع. POST /api/profile/avatar يقبل multipart/form-data باسم avatar ويرجع {avatarUrl:"/api/avatars/opaque-id"}. تحقق من الجلسة وCSRF ومحتوى الصورة وحدود الحجم والأبعاد، وأعد ترميزها على الخادم وأزل metadata وامنع SVG وملفات التنفيذ. لا تقبل أي URL خارجي أو ربط أصل غير مملوك للمستخدم. الواجهة تعيد ترميز صور الألبوم JPEG 512×512، وهذه المعالجة لا تغني عن تحقق الخادم. المعاينة تحفظ الاختيار محليًا ولا ترفع صور الألبوم إلى GitHub.
+الصور والألبوم أُلغيت. profile وwallet وأطراف العملية ترجع avatar بالشكل {kind:"initial"|"emoji",emoji:"⚽",color:"blue"}. القيمة الافتراضية أول حرف من الاسم؛ العربية والإنجليزية بخط Tajarib. يجب أن يتحقق الخادم من kind والإيموجيات والألوان المسموح بها في js/avatars.js. PATCH /api/profile يحفظ avatar مع بيانات الحساب ويرجع القيم المعتمدة. اختيار المعاينة محفوظ محليًا بمفتاح repay-demo-avatar-style فقط، ولا تُستخدم صور الألبوم القديمة.
 
 ## Bank account sheet
 
