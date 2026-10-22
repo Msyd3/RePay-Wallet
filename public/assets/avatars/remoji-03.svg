@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250" fill="none"><defs><clipPath id="body-clip"><rect width="250" height="250" rx="125" fill="#008CFF" />
+</clipPath></defs><rect width="250" height="250" rx="125" fill="#008CFF" />
+<g clip-path="url(#body-clip)"><g id="eyes"><rect width="31.5751" height="69.5808" rx="15.7876" transform="matrix(0.886951 -0.461863 0.483571 0.875305 111 82.0956)" fill="white" />
+<rect width="31.5751" height="69.5808" rx="15.7876" transform="matrix(0.886951 -0.461863 0.483571 0.875305 161.848 63.5834)" fill="white" />
+<animateTransform attributeName="transform" type="translate" values="0.00 0.00;-41.00 29.00;-6.00 29.00;-20.00 -8.50;-41.00 -8.50;-76.00 29.00;-62.00 66.50;-41.00 66.50;-6.00 47.75;0.00 0.00" dur="10.93s" repeatCount="indefinite" calcMode="spline" keyTimes="0.0;0.1111111111111111;0.2222222222222222;0.3333333333333333;0.4444444444444444;0.5555555555555556;0.6666666666666666;0.7777777777777778;0.8888888888888888;1.0" keySplines=".42 0 .58 1;.42 0 .58 1;.42 0 .58 1;.42 0 .58 1;.42 0 .58 1;.42 0 .58 1;.42 0 .58 1;.42 0 .58 1;.42 0 .58 1" /></g></g></svg>

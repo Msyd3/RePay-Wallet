@@ -41,14 +41,4 @@
 
 ## Avatars
 
-الصور والألبوم أُلغيت. profile وwallet وأطراف العملية ترجع avatar بالشكل {kind:"initial"|"emoji",emoji:"⚽",color:"blue"}. القيمة الافتراضية أول حرف من الاسم؛ العربية والإنجليزية بخط Tajarib. يجب أن يتحقق الخادم من kind والإيموجيات والألوان المسموح بها في js/avatars.js. PATCH /api/profile يحفظ avatar مع بيانات الحساب ويرجع القيم المعتمدة. اختيار المعاينة محفوظ محليًا بمفتاح repay-demo-avatar-style فقط، ولا تُستخدم صور الألبوم القديمة.
-
-## Bank account sheet
-
-GET /api/bank-account يرجع {account:null} إذا لا يوجد حساب، أو {account:{accountHolder,maskedIban,bankName,bankLogoUrl}}. PUT /api/bank-account يستقبل {iban,accountHolder} ويرجع الحساب المحفوظ بنفس الشكل بعد التحقق من الآيبان وملكية المستخدم. لا تُعد الآيبان الكامل في رد العرض، ولا تسجله في logs. يجب أن يتأكد الخادم من الملكية قبل أي سحب. الشيت يحفظ حسابًا فقط ولا ينفّذ سحبًا ماليًا.
-
-الشعار يأتي من /api/bank-logos/ أو /assets/banks/ على نفس النطاق، من دليل بنوك موثوق في الخادم. الرمز العام في المعاينة ليس شعار بنك معيّن. تفاصيل البنك لا تُحفظ في localStorage؛ المعاينة تحتفظ بالاسم والآيبان المخفي في ذاكرة الصفحة فقط.
-
-### Multiple bank accounts (supersedes single-account contract above)
-
-GET /api/bank-accounts returns {accounts:[{id,accountHolder,maskedIban,bankLogoUrl}]}. POST /api/bank-accounts receives {iban,accountHolder,id?}; id indicates updating an owned account, absence creates another. Return the authoritative list as {accounts:[...]}. DELETE /api/bank-accounts/{id} returns the remaining list. The server must reject deletion of the last account atomically, verify ownership, detect duplicate IBANs, and enforce CSRF. UI deletion is disabled with one account but is not an authorization boundary. Full IBANs never enter browser persistent storage.
+Only the ten bundled Remoji images are allowed. Profile, wallet and transaction parties return `avatar: {id: "remoji-01"}` through `remoji-10`. The backend must assign and persist a random allowed ID when creating a user, and validate the same allowlist on PATCH /api/profile. Profile editing offers only these ten choices; letters, emoji, colors and uploads are removed. Until a backend-provided avatar exists, the frontend assigns a random image and persists it per user on this device. Cross-device assignment requires the backend field. Images are served locally from assets/avatars/.

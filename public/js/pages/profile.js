@@ -29,7 +29,7 @@ form.addEventListener("submit", async event => {
   if (window.REPAY_CONFIG.demo) {
     if (avatarSelection) {
       try {
-        localStorage.setItem("repay-demo-avatar-style",JSON.stringify(avatarSelection)); avatarSelection=null; updateSaveVisibility();
+        RePayAvatars.save(currentProfile,avatarSelection); avatarSelection=null; updateSaveVisibility();
         message("تم حفظ صورة المعاينة على هذا الجهاز.");
       } catch { message("تعذر حفظ الصورة."); }
     } else message("هذه معاينة؛ البيانات لم تُحفظ على الخادم.");
@@ -51,26 +51,15 @@ form.addEventListener("submit", async event => {
 
 const pickerPreview=document.getElementById('avatar-preview');
 function renderAvatarDraft(){
- RePayAvatars.render(pickerPreview,{...currentProfile,fullName:fields[0].value},false,avatarDraft);
- document.querySelectorAll('[data-avatar-emoji]').forEach(button=>button.setAttribute('aria-pressed',String(avatarDraft.kind==='emoji'&&button.dataset.avatarEmoji===avatarDraft.emoji)));
- document.querySelectorAll('[data-avatar-choice-color]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.avatarChoiceColor===avatarDraft.color)));
- document.getElementById('avatar-color-tab').setAttribute('aria-pressed',String(avatarDraft.kind==='initial'));
- document.getElementById('avatar-emoji-tab').setAttribute('aria-pressed',String(avatarDraft.kind==='emoji'));
- document.getElementById('avatar-color-panel').hidden=avatarDraft.kind!=='initial';
- document.getElementById('avatar-emoji-panel').hidden=avatarDraft.kind!=='emoji';
+ RePayAvatars.render(pickerPreview,currentProfile,false,avatarDraft);
+ document.querySelectorAll('[data-avatar-id]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.avatarId===avatarDraft.id)));
 }
-for(const emoji of RePayAvatars.emojis){
- const button=document.createElement('button');button.type='button';button.className='avatar-option avatar-emoji-option';button.textContent=emoji;button.dataset.avatarEmoji=emoji;button.setAttribute('aria-label',emoji);
- button.addEventListener('click',()=>{avatarDraft.kind='emoji';avatarDraft.emoji=emoji;renderAvatarDraft();});document.getElementById('avatar-grid').append(button);
-}
-const colorLabels={blue:'أزرق',mint:'أخضر',pink:'وردي',purple:'بنفسجي',yellow:'أصفر',peach:'خوخي',gray:'رمادي'};
-for(const color of RePayAvatars.colors){
- const button=document.createElement('button');button.type='button';button.className='avatar-color-choice';button.dataset.avatarColor=color;button.dataset.avatarChoiceColor=color;button.setAttribute('aria-label',colorLabels[color]);
- button.addEventListener('click',()=>{avatarDraft.color=color;avatarDraft.kind='initial';renderAvatarDraft();});document.getElementById('avatar-colors').append(button);
+for(const id of RePayAvatars.ids){
+ const button=document.createElement('button');button.type='button';button.className='avatar-option remoji-option';button.dataset.avatarId=id;button.setAttribute('aria-label',`صورة الحساب ${RePayAvatars.ids.indexOf(id)+1}`);
+ RePayAvatars.render(button,null,false,{id});
+ button.addEventListener('click',()=>{avatarDraft={id};renderAvatarDraft();});document.getElementById('avatar-grid').append(button);
 }
 avatarButton.addEventListener('click',()=>{if(!loaded||saving)return;avatarDraft={...(avatarSelection||RePayAvatars.selection(currentProfile,true))};renderAvatarDraft();avatarDialog.showModal();});
-document.getElementById('avatar-color-tab').addEventListener('click',()=>{avatarDraft.kind='initial';renderAvatarDraft();});
-document.getElementById('avatar-emoji-tab').addEventListener('click',()=>{avatarDraft.kind='emoji';renderAvatarDraft();});
 document.getElementById('avatar-close').addEventListener('click',()=>avatarDialog.close());
 document.getElementById('avatar-done').addEventListener('click',()=>{
  const current=RePayAvatars.selection(currentProfile,true);

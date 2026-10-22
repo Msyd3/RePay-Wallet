@@ -1,22 +1,22 @@
 "use strict";
 window.RePayAvatars = (() => {
- const colors=['blue','mint','pink','purple','yellow','peach','gray'];
- const emojis=['😊','😎','🥰','🤩','😄','🦁','🐈','🦋','🌸','🌴','☕','⚽','🎮','🚀','⭐','💙'];
- const arabicInitials={'ا':'A','أ':'A','إ':'A','آ':'A','ٱ':'A','ء':'A','ؤ':'W','ئ':'Y','ب':'B','ت':'T','ث':'T','ج':'J','ح':'H','خ':'K','د':'D','ذ':'D','ر':'R','ز':'Z','س':'S','ش':'S','ص':'S','ض':'D','ط':'T','ظ':'Z','ع':'A','غ':'G','ف':'F','ق':'Q','ك':'K','ک':'K','ل':'L','م':'M','ن':'N','ه':'H','ة':'H','و':'W','ي':'Y','ى':'Y','ی':'Y'};
- function initial(person){const name=person?.fullName||person?.displayName||person?.name||'';const letter=Array.from(name.normalize('NFKC')).find(letter=>/[\p{L}\p{N}]/u.test(letter));return arabicInitials[letter]||(/^[a-z]$/i.test(letter||'')?letter.toUpperCase():'A');}
- function normalize(value){return {kind:value?.kind==='emoji'&&emojis.includes(value.emoji)?'emoji':'initial',emoji:emojis.includes(value?.emoji)?value.emoji:emojis[0],color:colors.includes(value?.color)?value.color:'blue'};}
- function selection(person,own=false){
-  if(own&&window.REPAY_CONFIG?.demo){try{const stored=localStorage.getItem('repay-demo-avatar-style');if(stored)return normalize(JSON.parse(stored));}catch{}}
-  if(person?.avatar)return normalize(person.avatar);
-  return normalize({kind:'initial',color:'blue'});
+ const ids=Array.from({length:10},(_,i)=>`remoji-${String(i+1).padStart(2,'0')}`);
+ const cache=new Map();
+ function normalize(value){return {id:ids.includes(value?.id)?value.id:ids[0]};}
+ function key(person){return `repay-avatar-v2:${person?.id||person?.userId||person?.phone||person?.email||person?.fullName||person?.displayName||person?.name||'guest'}`;}
+ function save(person,value){const choice=normalize(value);cache.set(key(person),choice);try{localStorage.setItem(key(person),JSON.stringify(choice));}catch{}return choice;}
+ function selection(person){
+  if(ids.includes(person?.avatar?.id))return normalize(person.avatar);
+  const identity=key(person);
+  if(cache.has(identity))return cache.get(identity);
+  try{const stored=JSON.parse(localStorage.getItem(identity));if(ids.includes(stored?.id)){cache.set(identity,normalize(stored));return cache.get(identity);}}catch{}
+  const values=new Uint32Array(1);crypto.getRandomValues(values);
+  return save(person,{id:ids[Math.floor(values[0]/4294967296*ids.length)]});
  }
  function render(target,person,own=false,override=null){
-  const choice=override?normalize(override):selection(person,own);
-  target.dataset.avatarColor=choice.kind==='emoji'?'emoji':choice.color;
-  const content=document.createElement('span');content.className='avatar-character';
-  content.textContent=choice.kind==='emoji'?choice.emoji:initial(person);
-  content.lang=choice.kind==='emoji'?'':/[\u0600-\u06ff]/.test(content.textContent)?'ar':'en';
-  content.setAttribute('aria-hidden','true');target.replaceChildren(content);
+  const choice=override?normalize(override):selection(person);
+  delete target.dataset.avatarColor;target.classList.add('remoji-avatar');
+  const image=document.createElement('img');image.className='remoji-image';const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;image.src=`assets/avatars/${choice.id}${reduced?'-still':''}.svg`;image.alt='';image.width=104;image.height=104;image.setAttribute('aria-hidden','true');target.replaceChildren(image);
  }
- return {colors,emojis,initial,normalize,selection,render};
+ return {ids,normalize,selection,save,render};
 })();
