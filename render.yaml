@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: repay-wallet-frontend
+    runtime: static
+    branch: main
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    autoDeployTrigger: checksPass
+    domains:
+      - wallet.repay.sa
+    routes:
+      - type: rewrite
+        source: /summary
+        destination: /index.html
+      - type: rewrite
+        source: /login
+        destination: /login.html
+      - type: rewrite
+        source: /otp
+        destination: /otp.html
+      - type: rewrite
+        source: /home
+        destination: /home.html
+      - type: rewrite
+        source: /profile
+        destination: /profile.html
+      - type: rewrite
+        source: /success
+        destination: /success.html
+      - type: rewrite
+        source: /failure
+        destination: /failure.html
