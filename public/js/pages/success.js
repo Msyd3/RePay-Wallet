@@ -30,7 +30,7 @@ async function verifySuccess() {
       if (data.id !== id) throw new Error("Mismatched ID");
     }
     if (data.status === "failed") {
-      const target = new URL("/failure", location.origin);
+      const target = new URL("/failure/", location.origin);
       target.search = new URLSearchParams({ lang: successLanguage });
       location.replace(target.href);
       return;

@@ -28,7 +28,7 @@ document.getElementById("otp-form").addEventListener("submit", async event => {
   const result = await otpConfig.onVerifyOtp({ challengeId, code: otpInput.value });
   if (result?.status !== "verified") throw Error();
   sessionStorage.removeItem("repay-otp-challenge"); sessionStorage.removeItem("repay-otp-deadline"); sessionStorage.removeItem("repay-otp-demo");
-  location.assign("/home");
+  location.assign("/home/");
  } catch { message("الرمز غير صحيح أو منتهي الصلاحية. حاول مرة أخرى."); }
  finally { busy = false; update(); }
 });

@@ -46,7 +46,7 @@ form.addEventListener("submit", async event => {
 });
 (async () => {
   try { applyProfile(window.REPAY_CONFIG.demo ? window.REPAY_DEMO.profile : await RePay.api("/api/profile")); }
-  catch (error) { if (error.status === 401) location.replace("/login"); else message("تعذر تحميل بيانات الحساب."); }
+  catch (error) { if (error.status === 401) location.replace("/login/"); else message("تعذر تحميل بيانات الحساب."); }
 })();
 
 const pickerPreview=document.getElementById('avatar-preview');

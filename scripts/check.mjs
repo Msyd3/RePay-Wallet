@@ -10,8 +10,8 @@ for (const file of all.filter(f => f.endsWith('.js'))) {
   assert.ok(!/innerHTML\s*=|document\.write\(|eval\(/.test(await readFile(file, 'utf8')), `Unsafe DOM/code sink: ${file}`);
 }
 const appRoutes = new Map([
-  ['/summary', 'index.html'], ['/login', 'login.html'], ['/otp', 'otp.html'],
-  ['/home', 'home.html'], ['/profile', 'profile.html'], ['/success', 'success.html'], ['/failure', 'failure.html']
+  ['/', 'index.html'], ['/summary/', 'index.html'], ['/login/', 'login.html'], ['/otp/', 'otp.html'],
+  ['/home/', 'home.html'], ['/profile/', 'profile.html'], ['/success/', 'success.html'], ['/failure/', 'failure.html']
 ]);
 for (const file of all.filter(f => f.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
