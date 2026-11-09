@@ -9,12 +9,21 @@ for (const file of all.filter(f => f.endsWith('.js'))) {
   assert.equal(result.status, 0, result.stderr);
   assert.ok(!/innerHTML\s*=|document\.write\(|eval\(/.test(await readFile(file, 'utf8')), `Unsafe DOM/code sink: ${file}`);
 }
+const appRoutes = new Map([
+  ['/summary', 'index.html'], ['/login', 'login.html'], ['/otp', 'otp.html'],
+  ['/home', 'home.html'], ['/profile', 'profile.html'], ['/success', 'success.html'], ['/failure', 'failure.html']
+]);
 for (const file of all.filter(f => f.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(new Set(ids).size, ids.length, `Duplicate ID in ${file}`);
   for (const match of html.matchAll(/(?:src|href)="([^"#?]+)(?:[?#][^"]*)?"/g)) {
     if (/^https?:/.test(match[1])) continue;
+    if (match[1].startsWith('/')) {
+      const target = appRoutes.get(match[1]);
+      assert.ok(target && all.some(f => resolve(f) === resolve('public', target)), `Unknown app route ${match[1]} in ${file}`);
+      continue;
+    }
     const path = resolve(dirname(file), match[1]);
     assert.ok(all.some(f => resolve(f) === path), `Missing local resource ${match[1]} in ${file}`);
   }
