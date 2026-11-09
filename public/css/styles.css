@@ -494,7 +494,7 @@ a:focus-visible {
   min-height: 88px;
   max-height: 88px;
   overflow-y: auto;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.7;
   border: 0;
 }
