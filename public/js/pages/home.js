@@ -55,7 +55,7 @@ document.addEventListener("keydown", event => { if (event.key === "Escape" && !a
 let loggingOut = false;
 document.getElementById("logout-button").addEventListener("click", async () => {
   if (loggingOut) return; loggingOut = true; closeAccountMenu();
-  try { if (!window.REPAY_CONFIG.demo) await window.REPAY_CONFIG.onLogout(); RePay.clearChallenge(); location.assign("/login"); }
+  try { if (!window.REPAY_CONFIG.demo) await window.REPAY_CONFIG.onLogout(); RePay.clearChallenge(); location.assign("/login/"); }
   catch { homeStatus.hidden = false; homeStatus.textContent = homeCopy[homeLanguage].error; }
   finally { loggingOut = false; }
 });
@@ -67,6 +67,6 @@ async function loadWallet() {
     if (!wallet || typeof wallet.displayName !== "string" || !Number.isSafeInteger(wallet.balanceMinor) || wallet.balanceMinor < 0 || !Array.isArray(wallet.transactions) || wallet.transactions.length > 500) throw Error();
     for (const item of wallet.transactions) if (!["incoming", "outgoing"].includes(item.direction) || typeof item.name !== "string" || !Number.isSafeInteger(item.amountMinor) || item.amountMinor <= 0 || !Number.isFinite(Date.parse(item.createdAt))) throw Error();
     renderWallet();
-  } catch (error) { wallet = null; if (error.status === 401) { location.replace("/login"); return; } homeStatus.hidden = false; homeStatus.textContent = homeCopy[homeLanguage].error; }
+  } catch (error) { wallet = null; if (error.status === 401) { location.replace("/login/"); return; } homeStatus.hidden = false; homeStatus.textContent = homeCopy[homeLanguage].error; }
 }
 loadWallet();
