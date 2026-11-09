@@ -20,7 +20,7 @@ loginForm.addEventListener("submit", async event => {
   }
   loginStatus.hidden = false;
   const handler = window.REPAY_CONFIG?.onRequestOtp;
-  if (typeof handler !== "function" && window.REPAY_CONFIG?.demo) { sessionStorage.setItem("repay-otp-demo", "true"); sessionStorage.setItem("repay-otp-deadline", String(Date.now() + 60000)); location.assign("otp.html"); return; }
+  if (typeof handler !== "function" && window.REPAY_CONFIG?.demo) { sessionStorage.setItem("repay-otp-demo", "true"); sessionStorage.setItem("repay-otp-deadline", String(Date.now() + 60000)); location.assign("/otp"); return; }
   if (typeof handler !== "function") { loginStatus.textContent = "الواجهة جاهزة؛ إرسال رمز التحقق يحتاج ربط خدمة تسجيل الدخول."; return; }
   requestingOtp = true;
   updateNextButton();
@@ -32,7 +32,7 @@ loginForm.addEventListener("submit", async event => {
     sessionStorage.setItem("repay-otp-challenge", result.challengeId);
     sessionStorage.setItem("repay-otp-deadline", String(Date.now() + 60000));
     sessionStorage.removeItem("repay-otp-demo");
-    location.assign("otp.html");
+    location.assign("/otp");
     window.dispatchEvent(new CustomEvent("repay:otp-sent"));
   } catch { loginStatus.textContent = "تعذر إرسال رمز التحقق. حاول مرة أخرى."; }
   finally { requestingOtp = false; updateNextButton(); }
