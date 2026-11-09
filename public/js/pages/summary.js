@@ -66,7 +66,7 @@ async function load() {
       if (transaction.status !== "pending") {
         terminal = true;
         if (transaction.status === "paid") {
-          const target = new URL("success.html", location.href);
+          const target = new URL("/success", location.origin);
           target.search = new URLSearchParams({ id, lang: language }); location.replace(target.href);
         } else setStatus(transaction.status === "cancelled" ? "cancelled" : "failed");
       }
@@ -84,7 +84,7 @@ async function act(action) {
     const result = await handler({ transactionId: transaction.id, ...(action === "pay" ? { note: byId("transaction-note").value.trim() } : {}) });
     if (action === "pay" && result?.status === "failed") {
       terminal = true;
-      const target = new URL("failure.html", location.href);
+      const target = new URL("/failure", location.origin);
       target.search = new URLSearchParams({ lang: language });
       location.assign(target.href);
       return;
@@ -93,7 +93,7 @@ async function act(action) {
     if (result?.status !== expected) throw new Error("Not confirmed");
     terminal = true; setStatus(expected);
     if (action === "pay") {
-      const target = new URL("success.html", location.href);
+      const target = new URL("/success", location.origin);
       target.search = new URLSearchParams({ id: transaction.id, lang: language });
       location.assign(target.href);
     }
