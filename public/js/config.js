@@ -2,7 +2,8 @@
 // The production build always starts without demo data.
 window.REPAY_CONFIG = Object.freeze({
   demo: false,
-  transactionEndpoint: "/api/transactions/",
+  transactionApiOrigin: "https://repay-poc.onrender.com",
+  transactionEndpoint: "https://repay-poc.onrender.com/api/transfer-reviews/",
   onRequestOtp: data => RePay.api("/api/auth/otp/request", { method: "POST", data }),
   onVerifyOtp: data => RePay.api("/api/auth/otp/verify", { method: "POST", data }),
   onResendOtp: data => RePay.api("/api/auth/otp/resend", { method: "POST", data }),

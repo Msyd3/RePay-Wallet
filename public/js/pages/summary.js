@@ -45,7 +45,7 @@ function render() {
 }
 function validate(data) {
   if (!data || !text(data.id) || !Number.isSafeInteger(data.amountMinor) || data.amountMinor <= 0 || data.currency !== "SAR" || !text(data.sender?.name) || !text(data.recipient?.name) || !text(data.accountName)) throw new Error("Invalid transaction");
-  return { id: text(data.id), status: data.status, accountName: text(data.accountName), sender: { id:data.sender.id, avatar:data.sender.avatar, name: text(data.sender.name), phone: text(data.sender.phone) }, recipient: { id:data.recipient.id, avatar:data.recipient.avatar, name: text(data.recipient.name), phone: text(data.recipient.phone) }, amountMinor: data.amountMinor, currency: "SAR" };
+  return { id: text(data.id), status: data.status, accountName: text(data.accountName), sender: { id:data.sender.id, avatar:data.sender.avatar, name: text(data.sender.name), phone: text(data.sender.phone) }, recipient: { id:data.recipient.id, avatar:data.recipient.avatar, name: text(data.recipient.name), phone: text(data.recipient.phone) }, amountMinor: data.amountMinor, currency: "SAR", note: typeof data.note === "string" ? data.note.trim().slice(0, 500) : "" };
 }
 async function load() {
   if (config.demo) {
@@ -56,13 +56,14 @@ async function load() {
     try {
       const id = RePay.safeId(params.get("id"));
       if (!id) throw new Error("Missing transaction ID");
-      const endpoint = new URL(config.transactionEndpoint, location.origin);
-      if (endpoint.origin !== location.origin || endpoint.search || endpoint.hash) throw new Error("Invalid endpoint");
+      const endpoint = new URL(config.transactionEndpoint);
+      if (endpoint.protocol !== "https:" || endpoint.origin !== config.transactionApiOrigin || endpoint.search || endpoint.hash) throw new Error("Invalid endpoint");
       endpoint.pathname = endpoint.pathname.replace(/\/?$/, "/") + encodeURIComponent(id);
-      const response = await fetch(endpoint, { credentials: "same-origin", cache: "no-store", headers: { Accept: "application/json" }, signal: AbortSignal.timeout(15000) });
+      const response = await fetch(endpoint, { credentials: "omit", cache: "no-store", headers: { Accept: "application/json" }, signal: AbortSignal.timeout(15000) });
       if (!response.ok) throw new Error("Unable to load");
       transaction = validate(RePay.validateReceipt(await response.json(), id));
       if (transaction.id !== id) throw new Error("Transaction mismatch");
+      byId("transaction-note").value = transaction.note;
       if (transaction.status !== "pending") {
         terminal = true;
         if (transaction.status === "paid") {
