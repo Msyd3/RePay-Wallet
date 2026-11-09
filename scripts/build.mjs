@@ -21,4 +21,13 @@ for (const name of await readdir(output)) {
   }
   await writeFile(`${output}/${name}`, html);
 }
+const cleanRoutes = [
+  ['summary', 'index.html'], ['login', 'login.html'], ['otp', 'otp.html'],
+  ['home', 'home.html'], ['profile', 'profile.html'], ['success', 'success.html'], ['failure', 'failure.html']
+];
+for (const [route, page] of cleanRoutes) {
+  const routeDir = resolve(output, route);
+  await mkdir(routeDir, { recursive: true });
+  await cp(resolve(output, page), resolve(routeDir, 'index.html'));
+}
 console.log(`Built ${demo ? 'demo' : 'production'} frontend in ${output}`);
