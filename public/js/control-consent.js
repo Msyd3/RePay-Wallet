@@ -10,7 +10,7 @@
   var decline=document.createElement('button');decline.type='button';decline.textContent='رفض';
   accept.onclick=function(){window.RePayControl.grantConsent();el.remove();};decline.onclick=function(){try{localStorage.setItem('rc:'+project+':declined','yes');}catch{}el.remove();};el.append(accept,decline);
   function mount(){document.body.appendChild(el);}
-  function init(){var prefs=document.createElement('button');prefs.type='button';prefs.className='rc-preferences';prefs.textContent='تفضيلات القياس';prefs.onclick=function(){window.RePayControl.openPreferences();};document.body.appendChild(prefs);if(!hasChoice)mount();}
+  function init(){if(!hasChoice)mount();}
   if(document.body)init();else document.addEventListener('DOMContentLoaded',init,{once:true});
   window.RePayControl.openPreferences=function(){window.RePayControl.revokeConsent();try{localStorage.removeItem('rc:'+project+':declined');}catch{}mount();};
 })();
