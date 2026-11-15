@@ -922,14 +922,14 @@ html[lang="en"] .transaction-card time {
 }
 .login-logo {
   display: block;
-  width: 128px;
-  height: 128px;
+  width: 100px;
+  height: 100px;
   margin-inline: auto;
 }
 .login-logo img {
   display: block;
-  width: 128px;
-  height: 128px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
 }
 #login-phone::placeholder {
@@ -964,7 +964,7 @@ html[lang="en"] .transaction-card time {
   padding: 110px 16px max(48px,env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
-  padding-top: 85px;
+  padding-top: 48px;
   position: relative;
 }
 #login-form {
