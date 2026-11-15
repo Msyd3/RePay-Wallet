@@ -18,7 +18,6 @@ function update() {
  resend.disabled = busy || seconds > 0 || (!challengeId && !demo);
  next.disabled = busy || !/^\d{6}$/.test(otpInput.value) || (!challengeId && !demo);
 }
-if (!challengeId && !demo) message("ارجع لصفحة الدخول لطلب رمز التحقق.");
 otpInput.addEventListener("input", () => { otpInput.value = otpInput.value.replace(/[٠-٩۰-۹]/g, d => String(d.charCodeAt(0) - (d >= "۰" ? 0x06F0 : 0x0660))).replace(/\D/g, "").slice(0,6); update(); });
 document.getElementById("otp-form").addEventListener("submit", async event => {
  event.preventDefault(); if (next.disabled) return;
