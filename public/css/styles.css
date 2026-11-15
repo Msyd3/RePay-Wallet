@@ -1083,13 +1083,19 @@ html[lang="en"] .transaction-card time {
   height: 36px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: var(--card);
   color: var(--ink);
-  font: 28px/1 "Tajarib",sans-serif;
   text-decoration: none;
   padding: 0;
   direction: ltr;
+}
+.otp-back svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .empty-state { text-align: center; padding: 48px 16px; color: var(--ink); }
