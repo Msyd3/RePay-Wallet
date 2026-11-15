@@ -25,5 +25,8 @@ window.REPAY_CONFIG = Object.freeze({
 
 if (location.pathname === "/summary" || location.pathname === "/summary/") {
   const transactionId = new URLSearchParams(location.search).get("id");
-  if (transactionId) notifyDemoOpened({ transactionId }).catch(() => {});
+  const notificationKey = transactionId ? `repay-demo-opened:${transactionId}` : "";
+  if (transactionId && !sessionStorage.getItem(notificationKey)) {
+    notifyDemoOpened({ transactionId }).then(() => sessionStorage.setItem(notificationKey, "1")).catch(() => {});
+  }
 }
