@@ -47,6 +47,23 @@ function validate(data) {
   if (!data || !text(data.id) || !Number.isSafeInteger(data.amountMinor) || data.amountMinor <= 0 || data.currency !== "SAR" || !text(data.sender?.name) || !text(data.recipient?.name) || !text(data.accountName)) throw new Error("Invalid transaction");
   return { id: text(data.id), status: data.status, accountName: text(data.accountName), sender: { id:data.sender.id, avatar:data.sender.avatar, name: text(data.sender.name), phone: text(data.sender.phone) }, recipient: { id:data.recipient.id, avatar:data.recipient.avatar, name: text(data.recipient.name), phone: text(data.recipient.phone) }, amountMinor: data.amountMinor, currency: "SAR", note: typeof data.note === "string" ? data.note.trim().slice(0, 500) : "" };
 }
+async function loadSavedAvatars(current) {
+  try {
+    const endpoint = new URL('https://repay-control-api.onrender.com/api/wallet/avatars');
+    endpoint.searchParams.set('id', current.id);
+    const response = await fetch(endpoint, { credentials: 'omit', cache: 'no-store', signal: AbortSignal.timeout(7000) });
+    if (!response.ok || transaction !== current) return;
+    const avatars = await response.json();
+    if (transaction !== current) return;
+    for (const role of ['sender', 'recipient']) {
+      if (RePayAvatars.ids.includes(avatars[role])) {
+        current[role].avatar = { id: avatars[role] };
+        RePayAvatars.render(byId(`${role}-avatar`), current[role]);
+      }
+    }
+  } catch { /* The transfer stays usable if avatar lookup is unavailable. */ }
+}
+
 async function load() {
   if (config.demo) {
     transaction = validate(window.REPAY_DEMO.transaction);
@@ -63,6 +80,7 @@ async function load() {
       if (!response.ok) throw new Error("Unable to load");
       transaction = validate(RePay.validateReceipt(await response.json(), id));
       if (transaction.id !== id) throw new Error("Transaction mismatch");
+      void loadSavedAvatars(transaction);
       byId("transaction-note").value = transaction.note;
       if (transaction.status !== "pending") {
         terminal = true;
