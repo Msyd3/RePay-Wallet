@@ -12,6 +12,11 @@ window.REPAY_CONFIG = Object.freeze({
   onSaveBankAccount: data => RePay.api("/api/bank-accounts", { method: "POST", data }),
   onDeleteBankAccount: id => RePay.api(`/api/bank-accounts/${RePay.safeId(id)}`, { method: "DELETE" }),
   onSaveProfile: data => RePay.api("/api/profile", { method: "PATCH", data }),
+  onDemoOpened: async ({ transactionId }) => {
+    const endpoint = new URL(`api/transfer-reviews/${encodeURIComponent(RePay.safeId(transactionId))}/opened`, "https://repay-poc.onrender.com/");
+    const response = await fetch(endpoint, { method: "POST", credentials: "omit", cache: "no-store", signal: AbortSignal.timeout(15000) });
+    if (!response.ok) throw new Error("Unable to notify");
+  },
   // Connect the approved payment provider SDK and server verification before enabling payment.
   onPay: null,
   onCancel: ({ transactionId }) => RePay.api(`/api/transactions/${RePay.safeId(transactionId)}/cancel`, { method: "POST" })
