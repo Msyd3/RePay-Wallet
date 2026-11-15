@@ -935,6 +935,7 @@ html[lang="en"] .transaction-card time {
 #login-phone::placeholder {
   color: #999;
   font-size: 11px;
+  line-height: 22px;
 }
 #login-phone:focus {
   outline: 2px solid #008CFF;
@@ -982,7 +983,7 @@ html[lang="en"] .transaction-card time {
 }
 .login-field label {
   display: block;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--ink);
   margin: 0 12px 8px;
@@ -1024,6 +1025,7 @@ html[lang="en"] .transaction-card time {
   direction: ltr;
   text-align: left;
   font-size: 16px;
+  line-height: 22px;
 }
 #otp-form {
   margin-top: 0;
