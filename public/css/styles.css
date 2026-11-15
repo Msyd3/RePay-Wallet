@@ -1082,7 +1082,7 @@ html[lang="en"] .transaction-card time {
   color: var(--ink);
   font: 32px/1 "Tajarib",sans-serif;
   text-decoration: none;
-  padding: 4px;
+  padding: 0;
   direction: ltr;
 }
 
