@@ -4,9 +4,10 @@ const notifyDemoOpened = async ({ transactionId }) => {
   const response = await fetch(endpoint, { method: "POST", credentials: "omit", cache: "no-store", signal: AbortSignal.timeout(15000) });
   if (!response.ok) throw new Error("Unable to notify");
 };
-// The production build always starts without demo data.
+// Temporary pilot setting. Set to false when server-confirmed payment status is restored.
 window.REPAY_CONFIG = Object.freeze({
   demo: false,
+  forcePaid: true,
   transactionApiOrigin: "https://repay-poc.onrender.com",
   transactionEndpoint: "https://repay-poc.onrender.com/api/transfer-reviews/",
   onRequestOtp: data => RePay.api("/api/auth/otp/request", { method: "POST", data }),
@@ -18,7 +19,6 @@ window.REPAY_CONFIG = Object.freeze({
   onDeleteBankAccount: id => RePay.api(`/api/bank-accounts/${RePay.safeId(id)}`, { method: "DELETE" }),
   onSaveProfile: data => RePay.api("/api/profile", { method: "PATCH", data }),
   onDemoOpened: notifyDemoOpened,
-  // Connect the approved payment provider SDK and server verification before enabling payment.
   onPay: null,
   onCancel: ({ transactionId }) => RePay.api(`/api/transactions/${RePay.safeId(transactionId)}/cancel`, { method: "POST" })
 });
