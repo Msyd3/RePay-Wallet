@@ -8,8 +8,8 @@ const copy = successLanguage === "ar" ? {
   loading: "Checking transaction status…", success: "Transaction processed successfully", back: "Return", pending: "Transaction is being processed", failed: "Unable to confirm this transaction", currency: "Saudi riyal"
 };
 
-// Temporary pilot mode: replace with server-confirmed status after payment integration is restored.
-const FORCE_PAID = true;
+// Temporary pilot mode, enabled only by the production wallet configuration.
+const FORCE_PAID = successConfig.forcePaid === true;
 
 document.documentElement.lang = successLanguage;
 document.documentElement.dir = successLanguage === "ar" ? "rtl" : "ltr";
@@ -28,9 +28,9 @@ function showSuccess(data) {
 }
 
 function approvedTransactionEndpoint() {
-  const endpoint = new URL(successConfig.transactionEndpoint);
-  const approvedOrigin = new URL(successConfig.transactionApiOrigin).origin;
-  if (endpoint.origin !== approvedOrigin || endpoint.protocol !== "https:" || endpoint.search || endpoint.hash) {
+  const endpoint = new URL(successConfig.transactionEndpoint, location.origin);
+  const approvedOrigin = successConfig.transactionApiOrigin ? new URL(successConfig.transactionApiOrigin).origin : location.origin;
+  if (endpoint.origin !== approvedOrigin || (endpoint.protocol !== "https:" && endpoint.origin !== location.origin) || endpoint.search || endpoint.hash) {
     throw new Error("Invalid transaction endpoint");
   }
   return endpoint;
