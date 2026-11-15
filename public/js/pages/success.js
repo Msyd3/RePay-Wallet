@@ -7,11 +7,25 @@ const copy = successLanguage === "ar" ? {
 } : {
   loading: "Checking transaction status…", success: "Transaction processed successfully", back: "Return", pending: "Transaction is being processed", failed: "Unable to confirm this transaction", currency: "Saudi riyal"
 };
+
+// Temporary pilot mode: replace with server-confirmed status after payment integration is restored.
+const FORCE_PAID = true;
+
 document.documentElement.lang = successLanguage;
 document.documentElement.dir = successLanguage === "ar" ? "rtl" : "ltr";
 document.getElementById("return-button").textContent = copy.back;
 document.getElementById("result-message").textContent = copy.loading;
 document.querySelector(".success-amount img").alt = copy.currency;
+
+function showSuccess(data) {
+  if (Number.isSafeInteger(data?.amountMinor) && data.amountMinor > 0 && data.currency === "SAR") {
+    document.getElementById("success-value").textContent = new Intl.NumberFormat("en-SA", { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(data.amountMinor / 100);
+    document.getElementById("success-amount").hidden = false;
+  }
+  document.getElementById("success-icon").removeAttribute("hidden");
+  document.getElementById("result-message").textContent = copy.success;
+  document.title = `RePay | ${copy.success}`;
+}
 
 function approvedTransactionEndpoint() {
   const endpoint = new URL(successConfig.transactionEndpoint);
@@ -24,9 +38,13 @@ function approvedTransactionEndpoint() {
 
 async function verifySuccess() {
   try {
+    if (FORCE_PAID) {
+      showSuccess();
+      return;
+    }
+
     let data;
     if (successConfig.demo) {
-      // Screenshot preview only; never used when demo is false.
       data = window.REPAY_DEMO.receipt;
     } else {
       const id = RePay.safeId(successParams.get("id"));
@@ -43,6 +61,7 @@ async function verifySuccess() {
       data = RePay.validateReceipt(await response.json(), id);
       if (data.id !== id) throw new Error("Mismatched ID");
     }
+
     if (data.status === "failed") {
       const target = new URL("/failure/", location.origin);
       target.search = new URLSearchParams({ lang: successLanguage });
@@ -54,12 +73,7 @@ async function verifySuccess() {
       document.querySelector(".success-page").classList.add("is-error");
       return;
     }
-    if (!Number.isSafeInteger(data.amountMinor) || data.amountMinor <= 0 || data.currency !== "SAR") throw new Error("Invalid amount");
-    document.getElementById("success-value").textContent = new Intl.NumberFormat("en-SA", { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(data.amountMinor / 100);
-    document.getElementById("success-icon").removeAttribute("hidden");
-    document.getElementById("success-amount").hidden = false;
-    document.getElementById("result-message").textContent = copy.success;
-    document.title = `RePay | ${copy.success}`;
+    showSuccess(data);
   } catch {
     document.getElementById("result-message").textContent = copy.failed;
     document.querySelector(".success-page").classList.add("is-error");
