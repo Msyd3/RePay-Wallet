@@ -1078,7 +1078,7 @@ html[lang="en"] .transaction-card time {
 .otp-back {
   position: absolute;
   top: 24px;
-  left: 20px;
+  left: 16px;
   color: var(--ink);
   font: 32px/1 "Tajarib",sans-serif;
   text-decoration: none;
