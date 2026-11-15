@@ -31,7 +31,9 @@ function render() {
     for (const role of ["sender", "recipient"]) {
       byId(`${role}-name`).textContent = transaction[role].name;
       byId(`${role}-phone`).textContent = transaction[role].phone;
-      RePayAvatars.render(byId(`${role}-avatar`),transaction[role]);
+      if (RePayAvatars.ids.includes(transaction[role].avatar?.id)) {
+        RePayAvatars.render(byId(`${role}-avatar`), transaction[role]);
+      }
     }
     byId("amount-value").textContent = new Intl.NumberFormat("en-SA", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(transaction.amountMinor / 100);
     byId("currency-label").hidden = false;
