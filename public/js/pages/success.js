@@ -12,6 +12,16 @@ document.documentElement.dir = successLanguage === "ar" ? "rtl" : "ltr";
 document.getElementById("return-button").textContent = copy.back;
 document.getElementById("result-message").textContent = copy.loading;
 document.querySelector(".success-amount img").alt = copy.currency;
+
+function approvedTransactionEndpoint() {
+  const endpoint = new URL(successConfig.transactionEndpoint);
+  const approvedOrigin = new URL(successConfig.transactionApiOrigin).origin;
+  if (endpoint.origin !== approvedOrigin || endpoint.protocol !== "https:" || endpoint.search || endpoint.hash) {
+    throw new Error("Invalid transaction endpoint");
+  }
+  return endpoint;
+}
+
 async function verifySuccess() {
   try {
     let data;
@@ -21,10 +31,14 @@ async function verifySuccess() {
     } else {
       const id = RePay.safeId(successParams.get("id"));
       if (!id || id.length > 160) throw new Error("Missing ID");
-      const endpoint = new URL(successConfig.transactionEndpoint, location.origin);
-      if (endpoint.origin !== location.origin || endpoint.search || endpoint.hash) throw new Error("Invalid endpoint");
+      const endpoint = approvedTransactionEndpoint();
       endpoint.pathname = endpoint.pathname.replace(/\/?$/, "/") + encodeURIComponent(id);
-      const response = await fetch(endpoint, { credentials: "same-origin", cache: "no-store", headers: { Accept: "application/json" }, signal: AbortSignal.timeout(15000) });
+      const response = await fetch(endpoint, {
+        credentials: "omit",
+        cache: "no-store",
+        headers: { Accept: "application/json" },
+        signal: AbortSignal.timeout(15000)
+      });
       if (!response.ok) throw new Error("Unable to verify");
       data = RePay.validateReceipt(await response.json(), id);
       if (data.id !== id) throw new Error("Mismatched ID");
