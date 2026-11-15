@@ -23,7 +23,8 @@ for (const name of await readdir(output)) {
 }
 const cleanRoutes = [
   ['summary', 'index.html'], ['login', 'login.html'], ['otp', 'otp.html'],
-  ['home', 'home.html'], ['profile', 'profile.html'], ['success', 'success.html'], ['failure', 'failure.html']
+  ['home', 'home.html'], ['profile', 'profile.html'], ['success', 'success.html'],
+  ['failure', 'failure.html'], ['expired', 'expired.html']
 ];
 for (const [route, page] of cleanRoutes) {
   const routeDir = resolve(output, route);
