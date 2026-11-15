@@ -1040,9 +1040,9 @@ html[lang="en"] .transaction-card time {
   border: 0;
   border-radius: 18px;
   background: var(--card);
-  padding: 12px;
+  padding: 10px 12px 14px;
   color: var(--ink);
-  font: 500 16px "Tajarib",sans-serif;
+  font: 500 16px/22px "Tajarib",sans-serif;
   direction: ltr;
   text-align: center;
   letter-spacing: 5px;
