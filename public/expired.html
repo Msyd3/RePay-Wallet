@@ -12,7 +12,7 @@
   <style>
     .expired-body { background: #FFBD72 !important; }
     .expired-page, .expired-page .success-content { color: #2D323A !important; }
-    .expired-page .success-icon { filter: none !important; }
+    .expired-icon { width: 180px; height: 180px; display: block; margin-inline: auto; }
     .expired-page h1 { color: #2D323A !important; margin-top: 34px; font-size: 22px; font-weight: 900; }
     .expired-page .failure-description { color: #2D323A !important; font-size: 15px; font-weight: 500; line-height: 1.8; margin: 6px 0 0; }
     .expired-page .return-button { background: #2D323A !important; color: #FFBD72 !important; }
@@ -27,7 +27,11 @@
 <body class="expired-body">
   <main class="success-page expired-page" aria-labelledby="result-message">
     <section class="success-content" aria-live="polite" id="result">
-      <img class="success-icon" src="assets/circle-alert.svg?v=2" alt="" width="180" height="180">
+      <svg class="expired-icon" viewBox="0 0 180 180" role="img" aria-label="تنبيه" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="90" cy="90" r="78" fill="#2D323A"/>
+        <path d="M90 48V101" stroke="#FFBD72" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="90" cy="128" r="8" fill="#FFBD72"/>
+      </svg>
       <h1 id="result-message">انتهت مدة الرابط</h1>
       <p class="failure-description" id="expired-description">ابدأ العملية من جديد</p>
     </section>
