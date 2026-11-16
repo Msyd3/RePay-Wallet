@@ -4,6 +4,12 @@ const notifyDemoOpened = async ({ transactionId }) => {
   const response = await fetch(endpoint, { method: "POST", credentials: "omit", cache: "no-store", signal: AbortSignal.timeout(15000) });
   if (!response.ok) throw new Error("Unable to notify");
 };
+const confirmDemoPayment = async ({ transactionId }) => {
+  const endpoint = new URL(`api/transfer-reviews/${encodeURIComponent(RePay.safeId(transactionId))}/confirmed`, "https://repay-poc.onrender.com/");
+  const response = await fetch(endpoint, { method: "POST", credentials: "omit", cache: "no-store", signal: AbortSignal.timeout(15000) });
+  if (!response.ok) throw new Error("Unable to confirm");
+  return { status: "paid" };
+};
 // Temporary pilot setting. Set to false when server-confirmed payment status is restored.
 const forcePaid = true;
 window.REPAY_CONFIG = Object.freeze({
@@ -21,7 +27,7 @@ window.REPAY_CONFIG = Object.freeze({
   onSaveProfile: data => RePay.api("/api/profile", { method: "PATCH", data }),
   onDemoOpened: notifyDemoOpened,
   // The pilot confirms visually without calling a live payment provider.
-  onPay: forcePaid ? async () => ({ status: "paid" }) : null,
+  onPay: forcePaid ? confirmDemoPayment : null,
   onCancel: ({ transactionId }) => RePay.api(`/api/transactions/${RePay.safeId(transactionId)}/cancel`, { method: "POST" })
 });
 
