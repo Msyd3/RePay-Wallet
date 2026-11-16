@@ -63,7 +63,17 @@ async function loadSavedAvatars(current) {
         RePayAvatars.render(byId(`${role}-avatar`), current[role]);
       }
     }
-  } catch { /* The transfer stays usable if avatar lookup is unavailable. */ }
+  } catch { /* A saved avatar can be retried on the next visit. */ }
+  finally {
+    if (transaction === current) {
+      for (const role of ['sender', 'recipient']) {
+        if (!RePayAvatars.ids.includes(current[role].avatar?.id)) {
+          current[role].avatar = RePayAvatars.selection(current[role]);
+          RePayAvatars.render(byId(`${role}-avatar`), current[role]);
+        }
+      }
+    }
+  }
 }
 
 async function load() {
