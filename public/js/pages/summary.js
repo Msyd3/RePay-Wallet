@@ -37,6 +37,9 @@ function enforceExpiry(transactionId) {
   expiryTimer = setTimeout(goToExpired, remaining);
   return false;
 }
+function checkExpiry() {
+  if (expiryAt && Date.now() >= expiryAt) goToExpired();
+}
 function render() {
   const t = translations[language];
   document.documentElement.lang = language;
@@ -96,16 +99,18 @@ async function loadSavedAvatars(current) {
 }
 
 async function load() {
+  // Start the five-minute timer immediately: it must still expire even if the
+  // transaction API is slow or unavailable.
+  const expiryId = params.get("id");
+  if (expiryId && enforceExpiry(expiryId)) return;
   if (config.demo) {
     transaction = validate(window.REPAY_DEMO.transaction);
-    if (enforceExpiry(transaction.id)) return;
   } else {
     for (const id of ["sender-name", "sender-phone", "recipient-name", "recipient-phone", "amount-value"]) byId(id).textContent = "—";
     byId("currency-label").hidden = true;
     try {
       const id = RePay.safeId(params.get("id"));
       if (!id) throw new Error("Missing transaction ID");
-      if (enforceExpiry(id)) return;
       const endpoint = new URL(config.transactionEndpoint);
       if (endpoint.protocol !== "https:" || endpoint.origin !== config.transactionApiOrigin || endpoint.search || endpoint.hash) throw new Error("Invalid endpoint");
       endpoint.pathname = endpoint.pathname.replace(/\/?$/, "/") + encodeURIComponent(id);
@@ -153,6 +158,9 @@ async function act(action) {
   } catch { setStatus("failed"); }
   finally { busy = false; render(); }
 }
+window.addEventListener("pageshow", checkExpiry);
+window.addEventListener("focus", checkExpiry);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) checkExpiry(); });
 byId("language-toggle").addEventListener("click", () => { language = language === "ar" ? "en" : "ar"; render(); });
 byId("pay-button").addEventListener("click", () => act("pay"));
 byId("cancel-button").addEventListener("click", () => act("cancel"));
