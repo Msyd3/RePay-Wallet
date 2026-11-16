@@ -16,31 +16,31 @@
 <body>
 <main class="waitlist-page">
   <header class="waitlist-header">
-    <a class="waitlist-back" href="/home/" aria-label="العودة للرئيسية"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
     <button id="waitlist-language" type="button" class="language-toggle" aria-label="Switch to English">EN</button>
+    <a class="waitlist-brand" href="https://repay.sa" aria-label="RePay"><img src="../assets/repay-logo.png" width="50" height="50" alt="RePay"></a>
   </header>
   <h1 id="waitlist-title">قائمة الانتظار</h1>
   <p id="waitlist-intro" class="waitlist-intro">تابع ترتيبك وشارك دعوتك لتتقدم في القائمة.</p>
   <section class="waitlist-card waitlist-rank" aria-labelledby="rank-title">
     <h2 id="rank-title">ترتيبك الحالي</h2>
-    <strong id="waitlist-rank" class="waitlist-rank-value" aria-live="polite">—</strong>
+    <strong id="waitlist-rank" class="waitlist-rank-value" aria-live="polite">0</strong>
     <p id="waitlist-rank-note">سيظهر ترتيبك عند ربط حسابك بقائمة الانتظار.</p>
   </section>
   <section class="waitlist-card" aria-labelledby="rewards-title">
     <h2 id="rewards-title">مكافآت الدعوات</h2>
-    <p id="rewards-copy">كل ١٠ دعوات مكتملة تضيف ١٠ ريالات إلى رصيدك بعد تفعيل التحويل.</p>
+    <p id="rewards-copy">كل 10 دعوات مكتملة تضيف 10 ريالات إلى رصيدك بعد تفعيل التحويل.</p>
     <div class="waitlist-progress" aria-label="تقدم الدعوات"><span id="referral-progress"></span></div>
-    <div class="waitlist-reward-line"><strong id="referral-count">— / ١٠</strong><span id="referral-status">بانتظار ربط الدعوات</span></div>
-    <button id="share-invite" class="waitlist-share" type="button" disabled>مشاركة رابط الدعوة</button>
+    <div class="waitlist-reward-line"><strong id="referral-count">0 / 10</strong><span id="referral-status">بانتظار ربط الدعوات</span></div>
   </section>
   <section class="waitlist-card" aria-labelledby="username-title">
     <h2 id="username-title">احجز اسم المستخدم</h2>
-    <p id="username-copy">اسم موحد تستقبل به التحويلات لاحقًا بدون مشاركة الآيبان.</p>
+    <p id="username-copy">اسم مستخدم واحد لكل حساباتك وعملياتك المالية.</p>
     <div class="waitlist-username"><input id="username-input" type="text" autocomplete="username" maxlength="20" placeholder="@username" disabled><button id="username-save" type="button" disabled>حجز</button></div>
   </section>
   <section class="waitlist-card" aria-labelledby="leaders-title">
     <h2 id="leaders-title">لوحة المتصدرين</h2>
     <p id="leaders-copy">يعرض المتصدرون بالبيانات المخفية لحماية الخصوصية.</p>
+    <div class="waitlist-leader-head" aria-hidden="true"><span id="leaders-name-column">الاسم</span><span id="leaders-number-column">الرقم</span><span id="leaders-rank-column">الترتيب</span></div>
     <div id="waitlist-leaders" class="waitlist-leaders" aria-live="polite"><p class="waitlist-empty">ستظهر القائمة عند تفعيل الدعوات.</p></div>
   </section>
 </main>
