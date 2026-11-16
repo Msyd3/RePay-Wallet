@@ -6,7 +6,7 @@ window.RePayAvatars = (() => {
  function key(person){return `repay-avatar-v2:${person?.id||person?.userId||person?.phone||person?.email||person?.fullName||person?.displayName||person?.name||'guest'}`;}
  function save(person,value){const choice=normalize(value);cache.set(key(person),choice);try{localStorage.setItem(key(person),JSON.stringify(choice));localStorage.setItem("repay-avatar-current",JSON.stringify(choice));}catch{}return choice;}
  function phoneChoice(value){
-  let phone=RePay.digits(String(value||'')).replace(/\D/g,'');
+  let phone=String(value||'').replace(/[٠-٩۰-۹]/g,d=>String(d.charCodeAt(0)-(d>="۰"?0x06F0:0x0660))).replace(/\D/g,'');
   if(/^05[0-9]{8}$/.test(phone))phone='966'+phone.slice(1);
   if(!/^9665[0-9]{8}$/.test(phone))return null;
   let hash=2166136261;
@@ -23,11 +23,12 @@ window.RePayAvatars = (() => {
   const values=new Uint32Array(1);crypto.getRandomValues(values);
   return save(person,{id:ids[Math.floor(values[0]/4294967296*ids.length)]});
  }
+ function current(){try{const stored=JSON.parse(localStorage.getItem("repay-avatar-current"));return ids.includes(stored?.id)?normalize(stored):null;}catch{return null;}}
  function render(target,person,own=false,override=null){
   const choice=override?normalize(override):selection(person);
   if(own){try{localStorage.setItem("repay-avatar-current",JSON.stringify(choice));}catch{}}
   delete target.dataset.avatarColor;target.classList.add('remoji-avatar');
   const image=document.createElement('img');image.className='remoji-image';const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;image.src=`/assets/avatars/${choice.id}${reduced?'-still':''}.svg`;image.alt='';image.width=104;image.height=104;image.setAttribute('aria-hidden','true');target.replaceChildren(image);
  }
- return {ids,normalize,selection,save,render};
+ return {ids,normalize,selection,save,current,render};
 })();
