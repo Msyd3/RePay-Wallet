@@ -5,8 +5,8 @@ const homeStatus = document.getElementById("home-status");
 let homeLanguage = localStorage.getItem("repay-language") === "en" ? "en" : "ar";
 let wallet = null;
 const homeCopy = {
-  ar: { balance: "الرصيد", transfer: "تحويل سريع", withdraw: "سحب", operations: "العمليات", profile: "الصفحة الشخصية", logout: "تسجيل خروج", language: "English", received: "حوالة واردة من", sent: "حوالة صادرة إلى", to: "إلى", empty: "لا توجد عمليات حاليًا لعرضها" },
-  en: { balance: "Balance", transfer: "Transfer", withdraw: "Withdraw", operations: "Activity", profile: "Profile", logout: "Log out", language: "العربية", received: "Received from", sent: "Sent to", to: "to", empty: "No activity to display yet" }
+  ar: { balance: "الرصيد", transfer: "تحويل سريع", withdraw: "سحب", operations: "العمليات", profile: "الصفحة الشخصية", waitlist: "قائمة الانتظار", logout: "تسجيل خروج", language: "English", received: "حوالة واردة من", sent: "حوالة صادرة إلى", to: "إلى", empty: "لا توجد عمليات حاليًا لعرضها" },
+  en: { balance: "Balance", transfer: "Transfer", withdraw: "Withdraw", operations: "Activity", profile: "Profile", waitlist: "Waitlist", logout: "Log out", language: "العربية", received: "Received from", sent: "Sent to", to: "to", empty: "No activity to display yet" }
 };
 function closeAccountMenu() { accountMenu.hidden = true; accountToggle.setAttribute("aria-expanded", "false"); }
 function node(tag, className, value) { const el = document.createElement(tag); if (className) el.className = className; if (value !== undefined) el.textContent = value; return el; }
@@ -20,6 +20,7 @@ function renderWallet() {
   document.getElementById("withdraw-button").textContent = t.withdraw;
   document.querySelector(".transactions>h2").textContent = t.operations;
   document.querySelector("#account-menu a").textContent = t.profile;
+  document.getElementById("waitlist-link").textContent = t.waitlist;
   document.getElementById("logout-button").textContent = t.logout;
   document.getElementById("home-language").textContent = t.language;
   const list = document.getElementById("transaction-list"); list.replaceChildren();
