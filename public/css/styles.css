@@ -1225,6 +1225,7 @@ h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font
 /* Waitlist */
 .waitlist-page{max-width:480px;margin-inline:auto;min-height:100svh;padding:20px 12px 48px}
 .waitlist-header{position:relative;min-height:54px;display:flex;align-items:center;justify-content:flex-start;margin-bottom:24px}
+.waitlist-header .language-toggle{top:3px;left:0}
 .waitlist-brand{position:absolute;left:50%;top:0;transform:translateX(-50%);width:50px;height:50px;display:block}
 .waitlist-brand img{display:block;width:50px;height:50px;object-fit:contain}
 .waitlist-page h1{font-size:22px;margin:0 0 4px}
@@ -1237,6 +1238,7 @@ h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font
 .waitlist-rank-value{display:block;font:800 44px/1 "Tajarib",sans-serif;margin:12px 0 4px;min-height:44px}
 .waitlist-progress{height:10px;background:#dfe2e6;border-radius:99px;overflow:hidden;margin:16px 0 10px}
 .waitlist-progress>span{display:block;height:100%;width:0;background:#008CFF;border-radius:inherit;transition:width .2s ease}
+.waitlist-condition{font-size:12px!important;color:var(--ink)!important;font-weight:600;margin-top:14px!important}
 .waitlist-reward-line{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .waitlist-reward-line strong{font-size:14px}
 .waitlist-username button:disabled{background:#cbd1d8;color:#fff;cursor:not-allowed;transform:none}
@@ -1255,6 +1257,7 @@ h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font
 html[lang="en"] .waitlist-username{direction:ltr}
 html[lang="en"] .waitlist-header{flex-direction:row-reverse}
 
-.waitlist-leader-head{display:grid;grid-template-columns:1fr 72px 58px;gap:8px;align-items:center;margin-top:16px;padding:0 12px;color:#747b8b;font-size:12px;font-weight:700}
+.waitlist-leader-head{display:grid;grid-template-columns:minmax(0,1fr) 104px 64px;gap:8px;align-items:center;margin-top:16px;padding:0 14px;color:#747b8b;font-size:12px;font-weight:700}
 .waitlist-leader-head span:nth-child(2),.waitlist-leader-head span:nth-child(3){text-align:center}
 html[lang="en"] .waitlist-header{flex-direction:row}
+html[lang="en"] .waitlist-leader-head{grid-template-columns:minmax(0,1fr) 104px 64px}
