@@ -10,6 +10,9 @@ let transaction = null;
 let busy = false;
 let terminal = false;
 let statusKey = null;
+let expiryAt = 0;
+let expiryTimer = null;
+const summaryLifetimeMs = 5 * 60 * 1000;
 const byId = (id) => document.getElementById(id);
 const englishDigits = RePay.digits;
 const text = (value) => typeof value === "string" ? englishDigits(value.trim().slice(0, 160)) : "";
@@ -17,6 +20,22 @@ function setStatus(key) {
   statusKey = key;
   byId("payment-status").hidden = !key;
   byId("payment-status").textContent = key ? translations[language][key] : "";
+}
+function goToExpired() {
+  const target = new URL("/expired/", location.origin);
+  target.search = new URLSearchParams({ lang: language });
+  location.replace(target.href);
+}
+function enforceExpiry(transactionId) {
+  const key = `repay-summary-expiry:${transactionId}`;
+  const saved = Number(sessionStorage.getItem(key));
+  expiryAt = Number.isFinite(saved) && saved > 0 ? saved : Date.now() + summaryLifetimeMs;
+  if (!saved) sessionStorage.setItem(key, String(expiryAt));
+  const remaining = expiryAt - Date.now();
+  if (remaining <= 0) { goToExpired(); return true; }
+  if (expiryTimer) clearTimeout(expiryTimer);
+  expiryTimer = setTimeout(goToExpired, remaining);
+  return false;
 }
 function render() {
   const t = translations[language];
@@ -79,12 +98,14 @@ async function loadSavedAvatars(current) {
 async function load() {
   if (config.demo) {
     transaction = validate(window.REPAY_DEMO.transaction);
+    if (enforceExpiry(transaction.id)) return;
   } else {
     for (const id of ["sender-name", "sender-phone", "recipient-name", "recipient-phone", "amount-value"]) byId(id).textContent = "—";
     byId("currency-label").hidden = true;
     try {
       const id = RePay.safeId(params.get("id"));
       if (!id) throw new Error("Missing transaction ID");
+      if (enforceExpiry(id)) return;
       const endpoint = new URL(config.transactionEndpoint);
       if (endpoint.protocol !== "https:" || endpoint.origin !== config.transactionApiOrigin || endpoint.search || endpoint.hash) throw new Error("Invalid endpoint");
       endpoint.pathname = endpoint.pathname.replace(/\/?$/, "/") + encodeURIComponent(id);
@@ -107,6 +128,7 @@ async function load() {
 }
 async function act(action) {
   if (!transaction || busy || terminal) return;
+  if (Date.now() >= expiryAt) { goToExpired(); return; }
   const handler = config[action === "pay" ? "onPay" : "onCancel"];
   window.dispatchEvent(new CustomEvent(`repay:${action === "pay" ? "payment" : "cancel"}-request`, { detail: { transactionId: transaction.id, demo: !!config.demo } }));
   if (typeof handler !== "function") return;
