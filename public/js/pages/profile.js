@@ -11,6 +11,7 @@ let avatarSelection = null;
 let avatarDraft = null;
 const avatarButton = document.getElementById("profile-avatar");
 const avatarDialog = document.getElementById("avatar-dialog");
+RePayAvatars.render(avatarButton, { id: "current-user" }, true, RePayAvatars.current());
 function message(text) { status.hidden = false; status.textContent = text; }
 function changed() { return loaded && (avatarSelection !== null || fields.some((field, i) => field.value !== originalValues[i])); }
 function updateSaveVisibility() { saveButton.hidden = !changed(); saveButton.disabled = saving; }
