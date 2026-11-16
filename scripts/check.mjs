@@ -11,7 +11,7 @@ for (const file of all.filter(f => f.endsWith('.js'))) {
 }
 const appRoutes = new Map([
   ['/', 'index.html'], ['/summary/', 'index.html'], ['/login/', 'login.html'], ['/otp/', 'otp.html'],
-  ['/home/', 'home.html'], ['/profile/', 'profile.html'], ['/success/', 'success.html'], ['/failure/', 'failure.html']
+  ['/home/', 'home.html'], ['/profile/', 'profile.html'], ['/waitlist/', 'waitlist/index.html'], ['/success/', 'success.html'], ['/failure/', 'failure.html']
 ]);
 for (const file of all.filter(f => f.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
