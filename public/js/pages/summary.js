@@ -115,6 +115,9 @@ async function load() {
       if (endpoint.protocol !== "https:" || endpoint.origin !== config.transactionApiOrigin || endpoint.search || endpoint.hash) throw new Error("Invalid endpoint");
       endpoint.pathname = endpoint.pathname.replace(/\/?$/, "/") + encodeURIComponent(id);
       const response = await fetch(endpoint, { credentials: "omit", cache: "no-store", headers: { Accept: "application/json" }, signal: AbortSignal.timeout(15000) });
+      // An expired server-side request is deliberately unavailable and must
+      // never be shown as a generic loading error.
+      if (response.status === 404 || response.status === 410) { goToExpired(); return; }
       if (!response.ok) throw new Error("Unable to load");
       transaction = validate(RePay.validateReceipt(await response.json(), id));
       if (transaction.id !== id) throw new Error("Transaction mismatch");
