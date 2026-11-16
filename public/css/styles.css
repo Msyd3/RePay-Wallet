@@ -1220,3 +1220,38 @@ h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font
 .profile-avatar.remoji-avatar,button.profile-avatar.remoji-avatar{width:116px;height:116px;min-height:116px}
 .remoji-image[src*="remoji-04."]{padding:24%}
 
+
+
+/* Waitlist */
+.waitlist-page{max-width:430px;margin-inline:auto;min-height:100svh;padding:30px 16px 48px}
+.waitlist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
+.waitlist-back{width:36px;min-height:36px;padding:0;background:transparent;color:var(--ink);display:grid;place-items:center}
+.waitlist-back svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.waitlist-page h1{font-size:22px;margin:0 0 4px}
+.waitlist-intro{font-size:13px;color:#747b8b;margin:0 0 20px;line-height:1.6}
+.waitlist-card{background:var(--card);border-radius:24px;padding:20px;margin-bottom:14px}
+.waitlist-card h2{font-size:15px;margin:0 0 6px}
+.waitlist-card p{font-size:13px;line-height:1.65;margin:0;color:#747b8b}
+.waitlist-rank{background:#008CFF;color:#fff;text-align:center;padding:26px 20px}
+.waitlist-rank p{color:#e8f5ff}
+.waitlist-rank-value{display:block;font:800 44px/1 "Tajarib",sans-serif;margin:12px 0 4px;min-height:44px}
+.waitlist-progress{height:10px;background:#dfe2e6;border-radius:99px;overflow:hidden;margin:16px 0 10px}
+.waitlist-progress>span{display:block;height:100%;width:0;background:#008CFF;border-radius:inherit;transition:width .2s ease}
+.waitlist-reward-line{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.waitlist-reward-line strong{font-size:14px}
+.waitlist-share{background:#008CFF;border-radius:24px;min-height:46px;margin-top:16px;font-size:15px}
+.waitlist-share:disabled,.waitlist-username button:disabled{background:#cbd1d8;color:#fff;cursor:not-allowed;transform:none}
+.waitlist-username{display:flex;gap:8px;margin-top:14px;direction:ltr}
+.waitlist-username input{min-width:0;flex:1;border:0;border-radius:16px;background:#fff;padding:12px;color:var(--ink);font:500 15px "Tajarib",sans-serif}
+.waitlist-username input:focus{outline:2px solid #008CFF;outline-offset:2px}
+.waitlist-username button{width:auto;min-height:44px;padding:0 16px;border-radius:16px;background:#008CFF;font-size:13px;white-space:nowrap}
+.waitlist-leaders{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.waitlist-leader{display:flex;align-items:center;gap:10px;background:#fff;border-radius:16px;padding:11px 12px}
+.waitlist-leader-rank{font-weight:800;color:#008CFF;min-width:24px;text-align:center}
+.waitlist-leader-avatar{width:34px;height:34px;border-radius:50%;background:#e2e8f0;overflow:hidden;display:grid;place-items:center;flex:0 0 34px}
+.waitlist-leader-copy{min-width:0;flex:1}
+.waitlist-leader-copy strong{display:block;font-size:13px}
+.waitlist-leader-copy span{display:block;color:#747b8b;font-size:11px;margin-top:2px}
+.waitlist-empty{font-size:13px!important;color:#747b8b;text-align:center;padding:12px 0}
+html[lang="en"] .waitlist-username{direction:ltr}
+html[lang="en"] .waitlist-header{flex-direction:row-reverse}
