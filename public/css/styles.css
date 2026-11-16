@@ -1223,10 +1223,10 @@ h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font
 
 
 /* Waitlist */
-.waitlist-page{max-width:430px;margin-inline:auto;min-height:100svh;padding:30px 16px 48px}
-.waitlist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
-.waitlist-back{width:36px;min-height:36px;padding:0;background:transparent;color:var(--ink);display:grid;place-items:center}
-.waitlist-back svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.waitlist-page{max-width:480px;margin-inline:auto;min-height:100svh;padding:20px 12px 48px}
+.waitlist-header{position:relative;min-height:54px;display:flex;align-items:center;justify-content:flex-start;margin-bottom:24px}
+.waitlist-brand{position:absolute;left:50%;top:0;transform:translateX(-50%);width:50px;height:50px;display:block}
+.waitlist-brand img{display:block;width:50px;height:50px;object-fit:contain}
 .waitlist-page h1{font-size:22px;margin:0 0 4px}
 .waitlist-intro{font-size:13px;color:#747b8b;margin:0 0 20px;line-height:1.6}
 .waitlist-card{background:var(--card);border-radius:24px;padding:20px;margin-bottom:14px}
@@ -1239,8 +1239,7 @@ h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font
 .waitlist-progress>span{display:block;height:100%;width:0;background:#008CFF;border-radius:inherit;transition:width .2s ease}
 .waitlist-reward-line{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .waitlist-reward-line strong{font-size:14px}
-.waitlist-share{background:#008CFF;border-radius:24px;min-height:46px;margin-top:16px;font-size:15px}
-.waitlist-share:disabled,.waitlist-username button:disabled{background:#cbd1d8;color:#fff;cursor:not-allowed;transform:none}
+.waitlist-username button:disabled{background:#cbd1d8;color:#fff;cursor:not-allowed;transform:none}
 .waitlist-username{display:flex;gap:8px;margin-top:14px;direction:ltr}
 .waitlist-username input{min-width:0;flex:1;border:0;border-radius:16px;background:#fff;padding:12px;color:var(--ink);font:500 15px "Tajarib",sans-serif}
 .waitlist-username input:focus{outline:2px solid #008CFF;outline-offset:2px}
@@ -1255,3 +1254,7 @@ h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font
 .waitlist-empty{font-size:13px!important;color:#747b8b;text-align:center;padding:12px 0}
 html[lang="en"] .waitlist-username{direction:ltr}
 html[lang="en"] .waitlist-header{flex-direction:row-reverse}
+
+.waitlist-leader-head{display:grid;grid-template-columns:1fr 72px 58px;gap:8px;align-items:center;margin-top:16px;padding:0 12px;color:#747b8b;font-size:12px;font-weight:700}
+.waitlist-leader-head span:nth-child(2),.waitlist-leader-head span:nth-child(3){text-align:center}
+html[lang="en"] .waitlist-header{flex-direction:row}
