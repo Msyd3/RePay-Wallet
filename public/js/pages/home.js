@@ -24,7 +24,7 @@ function renderWallet() {
   document.getElementById("home-language").textContent = t.language;
   const list = document.getElementById("transaction-list"); list.replaceChildren();
   document.getElementById("balance-value").textContent = RePay.money(wallet?.balanceMinor ?? 0, 0);
-  RePayAvatars.render(accountToggle, wallet || { id: "current-user" }, true);
+  RePayAvatars.render(accountToggle, wallet || { id: "current-user" }, true, wallet ? null : RePayAvatars.current());
   accountToggle.setAttribute("aria-label", wallet?.displayName || (homeLanguage === "ar" ? "الحساب" : "Account"));
   const transactions = wallet?.transactions || [];
   if (!transactions.length) {
