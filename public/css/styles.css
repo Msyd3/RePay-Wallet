@@ -1257,13 +1257,13 @@ h2,.transaction-copy h3,.profile-field label,#bank-form label,.saved-holder{font
 html[lang="en"] .waitlist-username{direction:ltr}
 html[lang="en"] .waitlist-header{flex-direction:row-reverse}
 
-.waitlist-leader-head{display:grid;grid-template-columns:minmax(0,1fr) 104px 64px;gap:8px;align-items:center;margin-top:16px;padding:0 14px;color:#747b8b;font-size:12px;font-weight:700}
-.waitlist-leader-head span:nth-child(2),.waitlist-leader-head span:nth-child(3){text-align:center}
+.waitlist-leader-head{display:grid;grid-template-columns:minmax(0,1fr) 96px 58px 52px;gap:8px;align-items:center;margin-top:16px;padding:0 14px;color:#747b8b;font-size:12px;font-weight:700}
+.waitlist-leader-head span:not(:first-child){text-align:center}
 html[lang="en"] .waitlist-header{flex-direction:row}
-html[lang="en"] .waitlist-leader-head{grid-template-columns:minmax(0,1fr) 104px 64px}
+html[lang="en"] .waitlist-leader-head{grid-template-columns:minmax(0,1fr) 96px 58px 52px}
 
-.waitlist-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
-.waitlist-stats>div+div{border-inline-start:1px solid #ffffff55}
+.waitlist-stats{display:flex;justify-content:center;align-items:start}
+.waitlist-stats>div{text-align:center}
 .waitlist-stats h2{min-height:22px}
 .waitlist-stats .waitlist-rank-value{font-size:40px}
 .referral-cycle{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:3px 8px;border-radius:999px;background:#e6f3ff;color:#0076d6;font-size:12px;font-weight:800}
