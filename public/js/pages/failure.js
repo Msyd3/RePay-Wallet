@@ -8,3 +8,11 @@ if (failureLanguage === "en") {
   document.getElementById("return-button").textContent = "Home";
   document.title = "RePay | Unable to complete the transaction";
 }
+
+
+document.getElementById("return-button").addEventListener("click", (event) => {
+  event.preventDefault();
+  window.close();
+  // WhatsApp's in-app browser closes on Back when a direct close is blocked.
+  window.setTimeout(() => { if (history.length > 1) history.back(); }, 120);
+});
