@@ -51,7 +51,9 @@ function render() {
   byId("language-toggle").setAttribute("aria-label", language === "ar" ? "Switch to English" : "التبديل للعربية");
   if (transaction) {
     for (const role of ["sender", "recipient"]) {
-      byId(`${role}-name`).textContent = transaction[role].name;
+      const name = transaction[role].name;
+      byId(`${role}-name`).textContent = name;
+      byId(`${role}-name`).hidden = !name;
       byId(`${role}-phone`).textContent = transaction[role].phone;
       if (RePayAvatars.ids.includes(transaction[role].avatar?.id)) {
         RePayAvatars.render(byId(`${role}-avatar`), transaction[role]);
@@ -68,7 +70,7 @@ function render() {
   for (const action of ["pay", "cancel"]) byId(`${action}-button`).disabled = !transaction || busy || terminal || (!config.demo && typeof config[action === "pay" ? "onPay" : "onCancel"] !== "function");
 }
 function validate(data) {
-  if (!data || !text(data.id) || !Number.isSafeInteger(data.amountMinor) || data.amountMinor <= 0 || data.currency !== "SAR" || !text(data.sender?.name) || !text(data.recipient?.name) || !text(data.accountName)) throw new Error("Invalid transaction");
+  if (!data || !text(data.id) || !Number.isSafeInteger(data.amountMinor) || data.amountMinor <= 0 || data.currency !== "SAR" || !text(data.sender?.name) || !text(data.accountName)) throw new Error("Invalid transaction");
   return { id: text(data.id), status: data.status, accountName: text(data.accountName), sender: { id:data.sender.id, avatar:data.sender.avatar, name: text(data.sender.name), phone: text(data.sender.phone) }, recipient: { id:data.recipient.id, avatar:data.recipient.avatar, name: text(data.recipient.name), phone: text(data.recipient.phone) }, amountMinor: data.amountMinor, currency: "SAR", note: typeof data.note === "string" ? data.note.trim().slice(0, 500) : "" };
 }
 async function loadSavedAvatars(current) {
