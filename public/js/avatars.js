@@ -28,7 +28,7 @@ window.RePayAvatars = (() => {
   const choice=override?normalize(override):selection(person);
   if(own){try{localStorage.setItem("repay-avatar-current",JSON.stringify(choice));}catch{}}
   delete target.dataset.avatarColor;target.classList.add('remoji-avatar');
-  const image=document.createElement('img');image.className='remoji-image';image.src=`/assets/avatars/${choice.id}.svg`;image.alt='';image.width=104;image.height=104;image.setAttribute('aria-hidden','true');target.replaceChildren(image);
+  const image=document.createElement('img');image.className='remoji-image';image.src=`/assets/avatars/${choice.id}.svg?v=repay-shapes-1`;image.alt='';image.width=104;image.height=104;image.setAttribute('aria-hidden','true');target.replaceChildren(image);
  }
  return {ids,normalize,selection,save,current,render};
 })();
